@@ -28,7 +28,7 @@ class FileHelper
     if (Storage::exists($path)) {
       Storage::delete($path);
     } else {
-      return throw new Exception("Path not found");
+      return throw new Exception("Path not found: $path");
     }
   }
 }
