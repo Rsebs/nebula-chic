@@ -3,8 +3,8 @@
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,3 +31,4 @@ Route::controller(ImageController::class)->group(function () {
     Route::post('images/{image}', 'update')->name('images.update');
     Route::delete('images/{image}', 'destroy')->name('images.destroy');
 });
+Route::apiResource('sizes', SizeController::class);
