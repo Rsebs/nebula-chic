@@ -36,7 +36,7 @@ class ProductController extends Controller
             DB::commit();
 
             return $this->successResponse(ProductResource::collection($data), $paginate);
-        } catch (\Exception) {
+        } catch (\Throwable) {
             DB::rollBack();
 
             return $this->errorResponse([], "Something went wrong");
@@ -60,7 +60,7 @@ class ProductController extends Controller
             DB::commit();
 
             return $this->successResponse(ProductResource::make($data), null, "Created!", 201);
-        } catch (\Exception) {
+        } catch (\Throwable) {
             DB::rollBack();
 
             return $this->errorResponse([], "Something went wrong");

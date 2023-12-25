@@ -28,17 +28,18 @@ class ProductTypeController extends Controller
         try {
             DB::beginTransaction();
 
-            $page = $request->perPage ?? 15;
+            $page = $request->perPage ?? 25;
 
-            $data = ProductTypeResource::collection(ProductType::paginate($page));
+            $data = ProductType::paginate($page);
             $paginate = PaginationHelper::createPagination(ProductType::paginate($page));
 
             DB::commit();
 
-            return $this->successResponse($data, $paginate);
-        } catch (\Exception $e) {
+            return $this->successResponse(ProductTypeResource::collection($data), $paginate);
+        } catch (\Throwable) {
             DB::rollBack();
-            return $this->errorResponse($e->getMessage());
+
+            return $this->errorResponse([], "Something went wrong");
         }
     }
 
@@ -58,10 +59,11 @@ class ProductTypeController extends Controller
 
             DB::commit();
 
-            return $this->successResponse($data, null, "Created!", 201);
-        } catch (\Exception $e) {
+            return $this->successResponse(ProductTypeResource::make($data), null, "Created!", 201);
+        } catch (\Throwable) {
             DB::rollBack();
-            return $this->errorResponse($e->getMessage());
+
+            return $this->errorResponse([], "Something went wrong");
         }
     }
 
@@ -77,13 +79,14 @@ class ProductTypeController extends Controller
         try {
             DB::beginTransaction();
 
-            $productType = ProductTypeResource::make(ProductType::findOrFail($id));
+            $data = ProductType::findOrFail($id);
 
             DB::commit();
 
-            return $this->successResponse($productType);
+            return $this->successResponse(ProductTypeResource::make($data));
         } catch (ModelNotFoundException) {
             DB::rollBack();
+
             return $this->errorResponse(["Not Found"], "Resource Not Found", 404);
         }
     }
@@ -101,14 +104,15 @@ class ProductTypeController extends Controller
         try {
             DB::beginTransaction();
 
-            $productType = ProductType::findOrFail($id);
-            $data = $productType->update($request->all());
+            $data = ProductType::findOrFail($id);
+            $data->update($request->all());
 
             DB::commit();
 
-            return $this->successResponse($data, null, "Update!");
+            return $this->successResponse(ProductTypeResource::make($data), null, "Update!");
         } catch (ModelNotFoundException) {
             DB::rollBack();
+
             return $this->errorResponse(["Not Found"], "Resource Not Found", 404);
         }
     }
@@ -130,10 +134,15 @@ class ProductTypeController extends Controller
 
             DB::commit();
 
-            return $this->successResponse($data, null, "Deleted!");
+            return $this->successResponse(ProductTypeResource::make(($data), null, "Deleted!"));
         } catch (ModelNotFoundException) {
             DB::rollBack();
+
             return $this->errorResponse(["Not Found"], "Resource Not Found", 404);
+        } catch (\Throwable) {
+            DB::rollBack();
+
+            return $this->errorResponse([], "Something went wrong");
         }
     }
 }

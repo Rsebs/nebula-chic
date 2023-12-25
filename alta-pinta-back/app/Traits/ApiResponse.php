@@ -13,7 +13,7 @@ trait ApiResponse
    * 
    * @return \Illuminate\Http\JsonResponse
    */
-  protected function successResponse($data, $paginate = [], $message = "Success!", $status = 200)
+  protected function successResponse($data, $paginate = null, $message = "Success!", $status = 200)
   {
     return response()->json([
       "message" => $message,
