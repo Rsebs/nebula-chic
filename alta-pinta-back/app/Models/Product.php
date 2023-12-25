@@ -35,4 +35,14 @@ class Product extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    /**
+     * Relationship Many to Many
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class);
+    }
 }

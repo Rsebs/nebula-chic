@@ -13,4 +13,14 @@ class Size extends Model
         "name",
         "cod",
     ];
+
+    /**
+     * Relationship Many to Many
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }
