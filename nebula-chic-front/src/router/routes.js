@@ -1,11 +1,27 @@
+import MainLayout from "layouts/MainLayout.vue";
+import IndexPage from "pages/IndexPage.vue";
+import AboutPage from "src/pages/AboutPage.vue";
+import ContactPage from "src/pages/ContactPage.vue";
+
 const routes = [
   {
     path: "/",
-    component: () => import("layouts/MainLayout.vue"),
+    component: MainLayout,
     children: [
       {
         path: "",
-        component: () => import("pages/IndexPage.vue"),
+        name: "index",
+        component: IndexPage,
+      },
+      {
+        path: "/contact",
+        name: "contact",
+        component: ContactPage,
+      },
+      {
+        path: "/about",
+        name: "about",
+        component: AboutPage,
       },
     ],
   },
