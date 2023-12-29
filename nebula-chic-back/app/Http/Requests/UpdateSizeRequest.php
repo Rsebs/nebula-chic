@@ -27,8 +27,8 @@ class UpdateSizeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "unique:sizes,name," . $this->route("size"),
-            "cod" => "unique:sizes,cod," . $this->route("size") . "|max:3|uppercase"
+            "name" => "required|unique:sizes,name," . $this->route("size"),
+            "cod" => "required|unique:sizes,cod," . $this->route("size") . "|max:3|uppercase"
         ];
     }
 

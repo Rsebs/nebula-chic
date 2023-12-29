@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('product_size', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Product::class);
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignIdFor(Size::class);
-            $table->foreign('size_id')->references('id')->on('sizes');
+            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

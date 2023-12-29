@@ -27,8 +27,8 @@ class UpdateImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "file" => "image|max:2048",
-            "product_id" => "exists:products,id",
+            "file" => "required|image|max:2048",
+            "product_id" => "required|exists:products,id",
         ];
     }
 

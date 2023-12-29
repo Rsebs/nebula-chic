@@ -27,9 +27,9 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "unique:products,name," . $this->route("product") . "|max:80",
-            "price" => "numeric|min:10|decimal:2",
-            "product_type_id" => "exists:product_types,id",
+            "name" => "required|unique:products,name," . $this->route("product") . "|max:80",
+            "price" => "required|numeric|min:10|decimal:2",
+            "product_type_id" => "required|exists:product_types,id",
         ];
     }
 
