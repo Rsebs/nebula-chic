@@ -1,5 +1,5 @@
 <template>
-  <q-item :to="link" clickable v-ripple>
+  <q-item :to="{ name: pathName }" clickable v-ripple>
     <q-item-section avatar>
       <q-icon :name="icon" />
     </q-item-section>
@@ -18,7 +18,7 @@ export default defineComponent({
       required: true,
     },
 
-    link: {
+    pathName: {
       type: String,
       default: "#",
     },

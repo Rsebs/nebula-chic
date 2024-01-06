@@ -1,21 +1,13 @@
 <template>
-  <MenuLinkView
-    :title="$t('lblHome')"
-    icon="bi-house"
-    :link="{ name: 'index' }"
-  />
+  <MenuLinkView :title="$t('lblHome')" icon="bi-house" pathName="index" />
 
   <MenuLinkView
     :title="$t('lblContactUs')"
     icon="bi-envelope"
-    :link="{ name: 'contact' }"
+    pathName="contact"
   />
 
-  <MenuLinkView
-    :title="$t('lblAboutUs')"
-    icon="bi-people"
-    :link="{ name: 'about' }"
-  />
+  <MenuLinkView :title="$t('lblAboutUs')" icon="bi-people" pathName="about" />
 
   <q-separator />
 </template>
