@@ -29,8 +29,13 @@ class ProductController extends Controller
 
             $page = $request->perPage ?? 25;
 
-            $data = Product::paginate($page);
-            $paginate = PaginationHelper::createPagination(Product::paginate($page));
+            if ($request->type) {
+                $data = Product::where("product_type_id", $request->type)->paginate($page);
+                $paginate = PaginationHelper::createPagination(Product::where("product_type_id", $request->type)->paginate($page));
+            } else {
+                $data = Product::paginate($page);
+                $paginate = PaginationHelper::createPagination(Product::paginate($page));
+            }
 
             DB::commit();
 

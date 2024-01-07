@@ -17,7 +17,6 @@ class ImageResource extends JsonResource
         return [
             "id" => $this->id,
             "path" => $this->path,
-            "product" => ProductResource::make($this->product),
         ];
     }
 }

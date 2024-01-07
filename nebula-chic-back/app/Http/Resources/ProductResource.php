@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             "description" => $this->description,
             "producType" => ProductTypeResource::make($this->productType),
             "sizes" => SizeResource::collection($this->sizes),
+            "images" => ImageResource::collection($this->images)
         ];
     }
 }
