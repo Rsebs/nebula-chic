@@ -1,7 +1,12 @@
 <template>
   <q-card class="card">
     <q-img :src="`http://127.0.0.1:8000${oProduct.images[0].path}`">
-      <div class="absolute-bottom text-h6">{{ oProduct.name }}</div>
+      <div class="absolute-bottom text-h6">
+        <p>{{ oProduct.name }}</p>
+      </div>
+      <template v-slot:loading>
+        <q-spinner-dots color="primary" />
+      </template>
     </q-img>
 
     <q-card-section>
@@ -35,7 +40,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .card {
   width: 100%;
-  max-width: 250px;
+  max-width: 25rem;
 
   .card__description {
     display: -webkit-box;

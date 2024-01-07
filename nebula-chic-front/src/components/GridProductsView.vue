@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center q-gutter-md q-py-md">
+  <div class="row grid-cards q-gutter-lg q-mt-lg">
     <CardProductView
       v-for="oProduct in aProducts"
       :key="oProduct.id"

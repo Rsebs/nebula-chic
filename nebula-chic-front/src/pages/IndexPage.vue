@@ -1,26 +1,37 @@
 <template>
   <q-page>
     <CarouselView />
-    <div class="q-pa-md">
+    <div class="q-pa-md container">
       <Suspense>
         <template #default>
           <GridProductsView sEndpoint="products?type=1&perPage=8" />
         </template>
         <template #fallback>
-          <div class="row justify-center q-pt-md">
+          <div class="row justify-center q-my-xl">
             <q-spinner-oval color="accent" size="4em" />
           </div>
         </template>
       </Suspense>
 
-      <h1 class="text-center">Banner</h1>
+      <div class="q-my-xl">
+        <q-img
+          src="src/assets/img/banner.png"
+          alt="image banner"
+          fit="contain"
+          class="rounded-borders"
+        />
+      </div>
+
+      <div class="q-my-xl promotions">
+        <h2 class="text-center">¡Tenemos ofertas especiales!</h2>
+      </div>
 
       <Suspense>
         <template #default>
           <GridProductsView sEndpoint="products?type=2&perPage=8" />
         </template>
         <template #fallback>
-          <div class="row justify-center q-pt-md">
+          <div class="row justify-center q-my-xl">
             <q-spinner-oval color="accent" size="4em" />
           </div>
         </template>

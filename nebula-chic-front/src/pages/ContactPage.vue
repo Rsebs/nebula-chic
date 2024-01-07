@@ -1,85 +1,87 @@
 <template>
   <q-page padding>
-    <h2 class="text-center">{{ $t("lblContactUs") }}</h2>
-    <q-form
-      class="row q-col-gutter-md"
-      @submit.prevent="onSendForm"
-      @reset="onResetForm"
-      ref="form"
-    >
-      <q-input
-        v-model="name"
-        :label="$t('lblName')"
-        class="col-12 col-sm-6"
-        color="secondary"
-        outlined
-        :rules="[rules.required]"
-        lazy-rules
-      />
-
-      <q-input
-        v-model="lastName"
-        :label="$t('lblLastName')"
-        class="col-12 col-sm-6"
-        color="secondary"
-        outlined
-        :rules="[rules.required]"
-        lazy-rules
-      />
-
-      <q-input
-        v-model="email"
-        :label="$t('lblEmail')"
-        class="col-12 col-sm-6"
-        color="secondary"
-        outlined
-        :rules="[rules.required, rules.email]"
-        lazy-rules
-      />
-
-      <q-input
-        v-model="phone"
-        :label="$t('lblPhone')"
-        class="col-12 col-sm-6"
-        color="secondary"
-        outlined
-      />
-
-      <q-input
-        v-model="address"
-        :label="$t('lblAddress')"
-        class="col-12"
-        color="secondary"
-        outlined
-      />
-
-      <q-input
-        v-model="message"
-        :label="$t('lblYourMessageHere')"
-        type="textarea"
-        class="col-12"
-        color="secondary"
-        outlined
-        :rules="[rules.required]"
-        lazy-rules
-      />
-
-      <div class="col-12">
-        <q-btn
-          :label="$t('btnSubmit')"
-          type="submit"
-          icon="bi-send"
-          color="accent"
+    <div class="form-contact">
+      <h2 class="text-center text-weight-bold">{{ $t("lblContactUs") }}</h2>
+      <q-form
+        class="row q-col-gutter-md"
+        @submit.prevent="onSendForm"
+        @reset="onResetForm"
+        ref="form"
+      >
+        <q-input
+          v-model="name"
+          :label="$t('lblName')"
+          class="col-12 col-sm-6"
+          color="secondary"
+          outlined
+          :rules="[rules.required]"
+          lazy-rules
         />
-        <q-btn
-          :label="$t('btnReset')"
-          type="reset"
-          icon="bi-x"
-          class="q-ml-md"
-          color="accent"
+
+        <q-input
+          v-model="lastName"
+          :label="$t('lblLastName')"
+          class="col-12 col-sm-6"
+          color="secondary"
+          outlined
+          :rules="[rules.required]"
+          lazy-rules
         />
-      </div>
-    </q-form>
+
+        <q-input
+          v-model="email"
+          :label="$t('lblEmail')"
+          class="col-12 col-sm-6"
+          color="secondary"
+          outlined
+          :rules="[rules.required, rules.email]"
+          lazy-rules
+        />
+
+        <q-input
+          v-model="phone"
+          :label="$t('lblPhone')"
+          class="col-12 col-sm-6"
+          color="secondary"
+          outlined
+        />
+
+        <q-input
+          v-model="address"
+          :label="$t('lblAddress')"
+          class="col-12"
+          color="secondary"
+          outlined
+        />
+
+        <q-input
+          v-model="message"
+          :label="$t('lblYourMessageHere')"
+          type="textarea"
+          class="col-12"
+          color="secondary"
+          outlined
+          :rules="[rules.required]"
+          lazy-rules
+        />
+
+        <div class="col-12 row justify-center">
+          <q-btn
+            :label="$t('btnSubmit')"
+            type="submit"
+            icon="bi-send"
+            color="accent"
+          />
+          <q-btn
+            :label="$t('btnReset')"
+            type="reset"
+            icon="bi-x"
+            class="q-ml-md"
+            color="accent"
+          />
+        </div>
+      </q-form>
+    </div>
   </q-page>
 </template>
 
