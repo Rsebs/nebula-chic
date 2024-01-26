@@ -19,6 +19,7 @@ export default {
   lblShipment: "Envío",
   lblStoreInformation: "Información de la tienda",
   lblStores: "Tiendas",
+  lblSizes: "Tallas",
 
   lblEmail: "Correo electrónico",
   lblPassword: "Contraseña",
@@ -67,4 +68,5 @@ export default {
   btnSettings: "Configuración",
   btnLanguage: "Idioma",
   btnSeeProduct: "Ver Producto",
+  btnAddToCart: "Agregar al carrito",
 };

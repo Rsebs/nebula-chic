@@ -19,6 +19,7 @@ export default {
   lblShipment: "Shipment",
   lblStoreInformation: "Store Information",
   lblStores: "Stores",
+  lblSizes: "Sizes",
 
   lblEmail: "Email",
   lblPassword: "Password",
@@ -67,4 +68,5 @@ export default {
   btnSettings: "Settings",
   btnLanguage: "Language",
   btnSeeProduct: "See Product",
+  btnAddToCart: "Add to Cart",
 };

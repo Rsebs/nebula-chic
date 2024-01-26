@@ -15,16 +15,26 @@
       </p>
     </q-card-section>
 
-    <q-card-section> ${{ oProduct.price }} </q-card-section>
+    <q-card-section> $ {{ oProduct.price }} </q-card-section>
 
     <q-card-actions>
-      <q-btn class="col-12" color="secondary">Comprar</q-btn>
+      <q-btn class="col-12" color="secondary" @click="bShowModal = true">
+        {{ $t("btnSeeProduct") }}
+      </q-btn>
     </q-card-actions>
   </q-card>
+
+  <ModalProductView
+    :bShowModal="bShowModal"
+    :oProduct="oProduct"
+    @update:bShowModal="updateBShowModal"
+  />
 </template>
 
 <script>
+import { ref } from "vue";
 import { defineComponent } from "vue";
+import ModalProductView from "./ModalProductView.vue";
 
 export default defineComponent({
   name: "CardProductView",
@@ -34,13 +44,28 @@ export default defineComponent({
       required: true,
     },
   },
+  components: {
+    ModalProductView,
+  },
+  setup() {
+    const bShowModal = ref(false);
+
+    function updateBShowModal(newValue) {
+      bShowModal.value = newValue;
+    }
+
+    return {
+      bShowModal,
+      updateBShowModal,
+    };
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .card {
   width: 100%;
-  max-width: 25rem;
+  max-width: 250px;
 
   .card__description {
     display: -webkit-box;
