@@ -1,6 +1,10 @@
 <template>
   <q-page>
-    <CarouselView />
+    <CarouselView
+      sImgSource="src/assets/img/carousel/"
+      :aImages="['slide1.png', 'slide2.png', 'slide3.png']"
+      :autoplay="5000"
+    />
     <div class="q-pa-md container">
       <Suspense>
         <template #default>

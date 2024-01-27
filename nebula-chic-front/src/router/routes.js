@@ -1,7 +1,9 @@
 import MainLayout from "layouts/MainLayout.vue";
+import ErrorNotFound from "src/pages/ErrorNotFound.vue";
 import IndexPage from "pages/IndexPage.vue";
 import AboutPage from "src/pages/AboutPage.vue";
 import ContactPage from "src/pages/ContactPage.vue";
+import ProductPage from "src/pages/ProductPage.vue";
 
 const routes = [
   {
@@ -23,6 +25,11 @@ const routes = [
         name: "about",
         component: AboutPage,
       },
+      {
+        path: "/product/:productId",
+        name: "product",
+        component: ProductPage,
+      },
     ],
   },
 
@@ -30,7 +37,7 @@ const routes = [
   // but you can also remove it
   {
     path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue"),
+    component: ErrorNotFound,
   },
 ];
 

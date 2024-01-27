@@ -1,18 +1,19 @@
 <template>
   <q-carousel
-    animated
+    :animated="animated"
     v-model="slide"
     arrows
     infinite
-    :autoplay="5000"
-    swipeable
+    :autoplay="autoplay"
+    :swipeable="swipeable"
+    :thumbnails="thumbnails"
     :transition-duration="700"
   >
     <q-carousel-slide
-      v-for="i in 3"
+      v-for="(sImage, i) in aImages"
       :key="i"
       :name="i"
-      :img-src="`src/assets/img/carousel/slide${i}.png`"
+      :img-src="`${sImgSource}${sImage}`"
     />
   </q-carousel>
 </template>
@@ -23,9 +24,39 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CarouselView",
+  props: {
+    aImages: {
+      type: Array,
+      required: true,
+    },
+    sImgSource: {
+      type: String,
+      required: true,
+    },
+    animated: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    swipeable: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    autoplay: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    thumbnails: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
   setup() {
     return {
-      slide: ref(1),
+      slide: ref(0),
     };
   },
 });
