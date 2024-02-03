@@ -20,6 +20,7 @@ export default {
   lblStoreInformation: "Información de la tienda",
   lblStores: "Tiendas",
   lblSizes: "Tallas",
+  lblCart: "Carrito",
 
   lblEmail: "Correo electrónico",
   lblPassword: "Contraseña",
@@ -33,6 +34,7 @@ export default {
   lblLoading: "Cargando...",
   lblError: "Error",
   lblSuccess: "Éxito",
+  lblProductAdd: "Producto agregado al carrito",
 
   // Validations
   vRequired: "Este campo es requerido",

@@ -88,8 +88,8 @@
 <script>
 import { defineComponent } from "vue";
 import { ref } from "vue";
-import { useQuasar } from "quasar";
 import { useTranslation } from "src/services/i18nService";
+import { onShowNotify } from "src/services/notifyService";
 
 export default defineComponent({
   name: "ContactPage",
@@ -102,7 +102,6 @@ export default defineComponent({
       address = ref(""),
       message = ref("");
 
-    const $q = useQuasar();
     const { t } = useTranslation();
 
     const rules = {
@@ -112,12 +111,7 @@ export default defineComponent({
     };
 
     function onSendForm() {
-      $q.notify({
-        message: t("lblThanksForContact"),
-        position: "top-right",
-        color: "secondary",
-      });
-
+      onShowNotify(t("lblThanksForContact"));
       form.value.resetValidation();
       onResetForm();
     }

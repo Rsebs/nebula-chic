@@ -10,6 +10,25 @@
           </q-avatar>
           Nebula Chic
         </q-toolbar-title>
+
+        <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
+          <q-list>
+            <template v-for="oProduct in oProductStore.cart" :key="oProduct.id">
+              <q-item v-ripple>
+                <q-item-section>
+                  <q-item-label>{{ oProduct.name }}</q-item-label>
+                  <q-item-label>{{ oProduct.price }}</q-item-label>
+                </q-item-section>
+                <q-item-section avatar>
+                  <q-avatar rounded>
+                    <img :src="`http://127.0.0.1:8000${oProduct.image}`" />
+                  </q-avatar>
+                </q-item-section>
+              </q-item>
+              <q-separator />
+            </template>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
@@ -42,6 +61,7 @@
 import { ref } from "vue";
 import MenuView from "src/components/MenuView.vue";
 import { defineComponent } from "vue";
+import { useProductStore } from "src/stores/product";
 
 export default defineComponent({
   name: "MainLayout",
@@ -49,9 +69,13 @@ export default defineComponent({
     MenuView,
   },
   setup() {
+    const oProductStore = useProductStore();
+    console.log(process.env.SERVER_URL);
+
     return {
       drawer: ref(false),
       miniState: ref(true),
+      oProductStore,
     };
   },
 });

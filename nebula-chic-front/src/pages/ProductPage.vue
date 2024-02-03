@@ -38,6 +38,7 @@
                 :label="$t('btnAddToCart')"
                 color="secondary"
                 icon="bi-cart2"
+                @click="onAddToCart(oProduct)"
               />
             </div>
           </div>
@@ -57,6 +58,9 @@
 import { defineComponent, onMounted, ref } from "vue";
 import axiosService from "src/services/axiosService";
 import { onGetCurrentUrlParams } from "src/services/routerService";
+import { onShowNotify } from "src/services/notifyService";
+import { useTranslation } from "src/services/i18nService";
+import { useProductStore } from "src/stores/product";
 import CarouselView from "src/components/CarouselView.vue";
 
 export default defineComponent({
@@ -83,6 +87,20 @@ export default defineComponent({
       bLoading.value = false;
     }
 
+    function onAddToCart(oProduct) {
+      const toCart = {
+        id: oProduct.id,
+        name: oProduct.name,
+        price: oProduct.price,
+        image: oProduct.images[0].path,
+      };
+
+      oProductStore.onAddProductToCart(toCart);
+      onShowNotify(t("lblProductAdd"));
+    }
+
+    const oProductStore = useProductStore();
+    const { t } = useTranslation();
     const bLoading = ref(false);
     const oProduct = ref({});
     const sImagesProduct = ref([]);
@@ -91,6 +109,7 @@ export default defineComponent({
       bLoading,
       oProduct,
       sImagesProduct,
+      onAddToCart,
     };
   },
 });

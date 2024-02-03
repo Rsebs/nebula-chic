@@ -20,6 +20,7 @@ export default {
   lblStoreInformation: "Store Information",
   lblStores: "Stores",
   lblSizes: "Sizes",
+  lblCart: "Cart",
 
   lblEmail: "Email",
   lblPassword: "Password",
@@ -33,6 +34,7 @@ export default {
   lblLoading: "Loading...",
   lblError: "Error",
   lblSuccess: "Success",
+  lblProductAdd: "Product added to cart",
 
   // Validations
   vRequired: "This field is required",
