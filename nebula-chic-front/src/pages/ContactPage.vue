@@ -1,45 +1,44 @@
 <template>
   <q-page padding>
     <div class="form-contact">
-      <h2 class="text-center text-weight-bold">{{ $t("lblContactUs") }}</h2>
+      <h2 class="text-center text-weight-bold">{{ $t('lblContactUs') }}</h2>
       <q-form
         class="row q-col-gutter-md"
         @submit.prevent="onSendForm"
-        @reset="onResetForm"
-        ref="form"
+        ref="rForm"
       >
         <q-input
-          v-model="name"
+          v-model="sName"
           :label="$t('lblName')"
           class="col-12 col-sm-6"
           color="secondary"
           outlined
-          :rules="[rules.required]"
+          :rules="[validationRules.required]"
           lazy-rules
         />
 
         <q-input
-          v-model="lastName"
+          v-model="sLastName"
           :label="$t('lblLastName')"
           class="col-12 col-sm-6"
           color="secondary"
           outlined
-          :rules="[rules.required]"
+          :rules="[validationRules.required]"
           lazy-rules
         />
 
         <q-input
-          v-model="email"
+          v-model="sEmail"
           :label="$t('lblEmail')"
           class="col-12 col-sm-6"
           color="secondary"
           outlined
-          :rules="[rules.required, rules.email]"
+          :rules="[validationRules.required, validationRules.email]"
           lazy-rules
         />
 
         <q-input
-          v-model="phone"
+          v-model="sPhone"
           :label="$t('lblPhone')"
           class="col-12 col-sm-6"
           color="secondary"
@@ -47,7 +46,7 @@
         />
 
         <q-input
-          v-model="address"
+          v-model="sAddress"
           :label="$t('lblAddress')"
           class="col-12"
           color="secondary"
@@ -55,13 +54,13 @@
         />
 
         <q-input
-          v-model="message"
+          v-model="sMessage"
           :label="$t('lblYourMessageHere')"
           type="textarea"
           class="col-12"
           color="secondary"
           outlined
-          :rules="[rules.required]"
+          :rules="[validationRules.required]"
           lazy-rules
         />
 
@@ -86,58 +85,50 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { ref } from "vue";
-import { useTranslation } from "src/services/i18nService";
-import { onShowNotify } from "src/services/notifyService";
+import { defineComponent, ref } from 'vue';
+import { useTranslation } from 'src/services/i18nService';
+import { onShowNotify } from 'src/services/notifyService';
+import validationRules from 'src/utils/validationRules';
 
 export default defineComponent({
-  name: "ContactPage",
+  name: 'ContactPage',
   setup() {
-    const form = ref(null),
-      name = ref(""),
-      lastName = ref(""),
-      email = ref(""),
-      phone = ref(""),
-      address = ref(""),
-      message = ref("");
-
-    const { t } = useTranslation();
-
-    const rules = {
-      required: (v) => (v && v.length > 0) || t("vRequired"),
-      email: (v) =>
-        /^$|^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/g.test(v) || t("vEmail"),
-    };
-
     function onSendForm() {
-      onShowNotify(t("lblThanksForContact"));
-      form.value.resetValidation();
+      onShowNotify(t('lblThanksForContact'));
+      rForm.value.resetValidation();
       onResetForm();
     }
 
     function onResetForm() {
-      name.value = null;
-      lastName.value = null;
-      email.value = null;
-      phone.value = null;
-      address.value = null;
-      message.value = null;
+      sName.value = null;
+      sLastName.value = null;
+      sEmail.value = null;
+      sPhone.value = null;
+      sAddress.value = null;
+      sMessage.value = null;
     }
 
+    const { t } = useTranslation();
+
+    const rForm = ref(null);
+    const sName = ref('');
+    const sLastName = ref('');
+    const sEmail = ref('');
+    const sPhone = ref('');
+    const sAddress = ref('');
+    const sMessage = ref('');
+
     return {
-      form,
-      name,
-      lastName,
-      email,
-      phone,
-      address,
-      message,
-      rules,
+      rForm,
+      sName,
+      sLastName,
+      sEmail,
+      sPhone,
+      sAddress,
+      sMessage,
+      validationRules,
       onSendForm,
-      onResetForm,
     };
   },
 });
 </script>
-src/helpers/functions.js

@@ -9,12 +9,14 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import CardProductView from "components/CardProductView.vue";
-import axiosService from "src/services/axiosService";
+import { defineComponent } from 'vue';
+import CardProductView from 'components/CardProductView.vue';
+import axiosService from 'src/services/axiosService';
+import {onShowNotify} from 'src/services/notifyService';
+import {useTranslation} from 'src/services/i18nService';
 
 export default defineComponent({
-  name: "GridProductsView",
+  name: 'GridProductsView',
   components: {
     CardProductView,
   },
@@ -25,13 +27,23 @@ export default defineComponent({
     },
   },
   async setup(props) {
-    const aProducts = await axiosService
-      .onAxiosGet(props.sEndpoint)
-      .then((oResponse) => oResponse.data);
+    const {t} = useTranslation();
+    try {
+      const oResponse = await axiosService.onAxiosGet(props.sEndpoint);
 
-    return {
-      aProducts,
-    };
+      if (oResponse.statusCode !== 200) {
+        throw oResponse;
+      }
+
+      const aProducts = oResponse.data;
+
+      return {
+        aProducts,
+      };
+    } catch (error) {
+      console.error(error.message, error.statusCode);
+      onShowNotify(t('lblMessageError'), true);
+    }
   },
 });
 </script>

@@ -19,17 +19,17 @@
 
     <q-card-actions>
       <q-btn class="col-12" color="secondary" :to="`/product/${oProduct.id}`">
-        {{ $t("btnSeeProduct") }}
+        {{ $t('btnSeeProduct') }}
       </q-btn>
     </q-card-actions>
   </q-card>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "CardProductView",
+  name: 'CardProductView',
   props: {
     oProduct: {
       type: Object,

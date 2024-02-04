@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Image extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        "path",
-        "product_id",
-    ];
+  protected $fillable = [
+    'path',
+    'product_id',
+  ];
 
-    /**
-     * Relationship One to Many (Inverse)
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
+  /**
+   * Relationship One to Many (Inverse)
+   * 
+   * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function product()
+  {
+    return $this->belongsTo(Product::class);
+  }
 }

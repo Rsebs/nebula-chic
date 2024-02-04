@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductType extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        "name",
-    ];
+  protected $fillable = [
+    'name',
+  ];
 
-    /**
-     * Relationship One to Many
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+  /**
+   * Relationship One to Many
+   * 
+   * @return Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function products()
+  {
+    return $this->hasMany(Product::class);
+  }
 }

@@ -1,33 +1,33 @@
-import MainLayout from "layouts/MainLayout.vue";
-import ErrorNotFound from "src/pages/ErrorNotFound.vue";
-import IndexPage from "pages/IndexPage.vue";
-import AboutPage from "src/pages/AboutPage.vue";
-import ContactPage from "src/pages/ContactPage.vue";
-import ProductPage from "src/pages/ProductPage.vue";
+import MainLayout from 'layouts/MainLayout.vue';
+import ErrorNotFound from 'src/pages/ErrorNotFound.vue';
+import IndexPage from 'pages/IndexPage.vue';
+import AboutPage from 'src/pages/AboutPage.vue';
+import ContactPage from 'src/pages/ContactPage.vue';
+import ProductPage from 'src/pages/ProductPage.vue';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     component: MainLayout,
     children: [
       {
-        path: "",
-        name: "index",
+        path: '',
+        name: 'index',
         component: IndexPage,
       },
       {
-        path: "/contact",
-        name: "contact",
+        path: '/contact',
+        name: 'contact',
         component: ContactPage,
       },
       {
-        path: "/about",
-        name: "about",
+        path: '/about',
+        name: 'about',
         component: AboutPage,
       },
       {
-        path: "/product/:productId",
-        name: "product",
+        path: '/product/:productId',
+        name: 'product',
         component: ProductPage,
       },
     ],
@@ -36,7 +36,7 @@ const routes = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: "/:catchAll(.*)*",
+    path: '/:catchAll(.*)*',
     component: ErrorNotFound,
   },
 ];

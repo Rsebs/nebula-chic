@@ -45,12 +45,12 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import CarouselView from "components/CarouselView.vue";
-import GridProductsView from "components/GridProductsView.vue";
+import { defineComponent } from 'vue';
+import CarouselView from 'components/CarouselView.vue';
+import GridProductsView from 'components/GridProductsView.vue';
 
 export default defineComponent({
-  name: "IndexPage",
+  name: 'IndexPage',
   components: {
     CarouselView,
     GridProductsView,

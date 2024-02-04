@@ -14,7 +14,7 @@
             </p>
             <div>
               <div class="text-overline q-mb-md">
-                {{ $t("lblSizes") }}
+                {{ $t('lblSizes') }}
                 <div class="row q-gutter-xs">
                   <q-badge
                     v-for="oSize in oProduct.sizes"
@@ -55,16 +55,16 @@
   </q-page>
 </template>
 <script>
-import { defineComponent, onMounted, ref } from "vue";
-import axiosService from "src/services/axiosService";
-import { onGetCurrentUrlParams } from "src/services/routerService";
-import { onShowNotify } from "src/services/notifyService";
-import { useTranslation } from "src/services/i18nService";
-import { useProductStore } from "src/stores/product";
-import CarouselView from "src/components/CarouselView.vue";
+import { defineComponent, onMounted, ref } from 'vue';
+import axiosService from 'src/services/axiosService';
+import { onGetCurrentUrlParams } from 'src/services/routerService';
+import { onShowNotify } from 'src/services/notifyService';
+import { useTranslation } from 'src/services/i18nService';
+import { useProductStore } from 'src/stores/product';
+import CarouselView from 'src/components/CarouselView.vue';
 
 export default defineComponent({
-  name: "ProductPage",
+  name: 'ProductPage',
   components: {
     CarouselView,
   },
@@ -74,17 +74,27 @@ export default defineComponent({
     });
 
     async function onGetProduct() {
-      const oRouteParams = onGetCurrentUrlParams();
+      try {
+        bLoading.value = true;
+        const oRouteParams = onGetCurrentUrlParams();
+        const oResponse = await axiosService.onAxiosGet(
+          `products/${oRouteParams.productId}`
+        );
 
-      bLoading.value = true;
+        if (oResponse.statusCode !== 200) {
+          throw oResponse;
+        }
 
-      oProduct.value = await axiosService
-        .onAxiosGet(`products/${oRouteParams.productId}`)
-        .then((oResponse) => oResponse.data);
+        oProduct.value = oResponse.data;
+        sImagesProduct.value = oProduct.value.images.map(
+          (oImage) => oImage.path
+        );
 
-      sImagesProduct.value = oProduct.value.images.map((oImage) => oImage.path);
-
-      bLoading.value = false;
+        bLoading.value = false;
+      } catch (error) {
+        console.error(error.message, error.statusCode);
+        onShowNotify(t('lblMessageError'), true);
+      }
     }
 
     function onAddToCart(oProduct) {
@@ -96,11 +106,12 @@ export default defineComponent({
       };
 
       oProductStore.onAddProductToCart(toCart);
-      onShowNotify(t("lblProductAdd"));
+      onShowNotify(t('lblProductAdd'));
     }
 
-    const oProductStore = useProductStore();
     const { t } = useTranslation();
+    const oProductStore = useProductStore();
+
     const bLoading = ref(false);
     const oProduct = ref({});
     const sImagesProduct = ref([]);

@@ -8,24 +8,23 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "MenuLinkView",
+  name: 'MenuLinkView',
   props: {
     title: {
       type: String,
       required: true,
     },
-
     pathName: {
       type: String,
-      default: "#",
+      required: true,
     },
-
     icon: {
       type: String,
-      default: "",
+      required: false,
+      default: 'bi-dash',
     },
   },
 });

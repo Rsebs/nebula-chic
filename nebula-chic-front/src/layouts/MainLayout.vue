@@ -13,7 +13,7 @@
 
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>
-            <template v-for="oProduct in oProductStore.cart" :key="oProduct.id">
+            <template v-for="oProduct in oProductStore.aCart" :key="oProduct.id">
               <q-item v-ripple>
                 <q-item-section>
                   <q-item-label>{{ oProduct.name }}</q-item-label>
@@ -58,19 +58,17 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import MenuView from "src/components/MenuView.vue";
-import { defineComponent } from "vue";
-import { useProductStore } from "src/stores/product";
+import { defineComponent, ref } from 'vue';
+import MenuView from 'src/components/MenuView.vue';
+import { useProductStore } from 'src/stores/product';
 
 export default defineComponent({
-  name: "MainLayout",
+  name: 'MainLayout',
   components: {
     MenuView,
   },
   setup() {
     const oProductStore = useProductStore();
-    console.log(process.env.SERVER_URL);
 
     return {
       drawer: ref(false),

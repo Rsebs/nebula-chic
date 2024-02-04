@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Size extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        "name",
-        "cod",
-    ];
+  protected $fillable = [
+    'name',
+    'cod',
+  ];
 
-    /**
-     * Relationship Many to Many
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function products()
-    {
-        return $this->belongsToMany(Product::class);
-    }
+  /**
+   * Relationship Many to Many
+   * 
+   * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+   */
+  public function products()
+  {
+    return $this->belongsToMany(Product::class);
+  }
 }

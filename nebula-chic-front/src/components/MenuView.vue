@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import MenuLinkView from "./MenuLinkView.vue";
+import { defineComponent } from 'vue';
+import MenuLinkView from './MenuLinkView.vue';
 
 export default defineComponent({
-  name: "MenuView",
+  name: 'MenuView',
   components: {
     MenuLinkView,
   },

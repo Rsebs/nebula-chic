@@ -19,11 +19,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: "CarouselView",
+  name: 'CarouselView',
   props: {
     aImages: {
       type: Array,

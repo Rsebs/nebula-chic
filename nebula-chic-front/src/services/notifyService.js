@@ -1,9 +1,9 @@
-import { Notify } from "quasar";
+import { Notify } from 'quasar';
 
-export function onShowNotify(sMessage) {
+export function onShowNotify(sMessage, error = false) {
   return Notify.create({
     message: sMessage,
-    position: "top",
-    type: "positive",
+    position: 'top',
+    type: error ? 'negative' : 'positive',
   });
 }

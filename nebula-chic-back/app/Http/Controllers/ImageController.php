@@ -15,159 +15,134 @@ use App\Http\Requests\UpdateImageRequest;
 
 class ImageController extends Controller
 {
-    use ApiResponse;
+  use ApiResponse;
 
-    /**
-     * Display a listing of the resource.
-     * 
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(Request $request)
-    {
-        try {
-            DB::beginTransaction();
+  /**
+   * Display a listing of the resource.
+   * 
+   * @param \Illuminate\Http\Request $request
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function index(Request $request)
+  {
+    try {
+      $nPage = $request->perPage ?? 25;
+      $oData = Image::paginate($nPage);
+      $oPaginate = PaginationHelper::createPagination(Image::paginate($nPage));
 
-            $page = $request->perPage ?? 25;
-
-            $data = Image::paginate($page);
-            $paginate = PaginationHelper::createPagination(Image::paginate($page));
-
-            DB::commit();
-
-            return $this->successResponse(ImageResource::collection($data), $paginate);
-        } catch (\Throwable) {
-            DB::rollBack();
-
-            return $this->errorResponse([], "Something went wrong");
-        }
+      return $this->successResponse(ImageResource::collection($oData), $oPaginate);
+    } catch (\Throwable) {
+      return $this->errorResponse([], 'Something went wrong!');
     }
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     * 
-     * @param \App\Http\Requests\StoreProductTypeRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(StoreImageRequest $request)
-    {
-        try {
-            DB::beginTransaction();
+  /**
+   * Store a newly created resource in storage.
+   * 
+   * @param \App\Http\Requests\StoreProductTypeRequest $request
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function store(StoreImageRequest $request)
+  {
+    try {
+      DB::beginTransaction();
 
-            $image = $request->file("file")->store("public/images/products");
+      $oImage = $request->file('file')->store('public/images/products');
+      $sPath = Storage::url($oImage);
 
-            $path = Storage::url($image);
+      Image::create([
+        'path' => $sPath,
+        'product_id' => $request->product_id,
+      ]);
 
-            $data = Image::create([
-                "path" => $path,
-                "product_id" => $request->product_id,
-            ]);
+      DB::commit();
 
-            DB::commit();
+      return $this->successResponse([], null, 'Created!', 201);
+    } catch (\Throwable) {
+      DB::rollBack();
 
-            return $this->successResponse(ImageResource::make($data), null, "Created!", 201);
-        } catch (\Throwable $t) {
-            DB::rollBack();
-
-            return $this->errorResponse([$t->getMessage()], "Something went wrong");
-        }
+      return $this->errorResponse([], 'Something went wrong!');
     }
+  }
 
-    /**
-     * Display the specified resource.
-     * 
-     * @param int $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-        try {
-            DB::beginTransaction();
+  /**
+   * Display the specified resource.
+   * 
+   * @param int $id
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function show($id)
+  {
+    try {
+      $oData = Image::findOrFail($id);
 
-            $data = Image::findOrFail($id);
-
-            DB::commit();
-
-            return $this->successResponse(ImageResource::make($data));
-        } catch (\Throwable $e) {
-            DB::rollBack();
-
-            return $this->errorResponse([$e->getMessage()], "Something went wrong.", 404);
-        }
+      return $this->successResponse(ImageResource::make($oData));
+    } catch (\Throwable) {
+      return $this->errorResponse([], 'Something went wrong!', 404);
     }
+  }
 
-    /**
-     * Update the specified resource in storage.
-     * 
-     * @param  \App\Http\Requests\UpdateProductTypeRequest  $request
-     * @param  int  $id
-     * 
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateImageRequest $request, $id)
-    {
-        try {
-            DB::beginTransaction();
+  /**
+   * Update the specified resource in storage.
+   * 
+   * @param  \App\Http\Requests\UpdateProductTypeRequest  $request
+   * @param  int  $id
+   * 
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function update(UpdateImageRequest $request, $id)
+  {
+    try {
+      DB::beginTransaction();
 
-            $data = Image::findOrFail($id);
+      $oData = Image::findOrFail($id);
+      $oImage = $request->file('file')->store('public/images/products');
+      $sPath = Storage::url($oImage);
 
-            FileHelper::deleteFileStorage($data->path);
+      FileHelper::deleteFileStorage($oData->path);
 
-            $image = $request->file("file")->store("public/images/products");
+      $oData->update([
+        'path' => $sPath,
+        'product_id' => $request->product_id,
+      ]);
 
-            $path = Storage::url($image);
+      DB::commit();
 
-            $data->update([
-                "path" => $path,
-                "product_id" => $request->product_id,
-            ]);
+      return $this->successResponse([], null, 'Updated!');
+    } catch (\Throwable) {
+      DB::rollBack();
 
-            DB::commit();
-
-            return $this->successResponse(ImageResource::make($data), null, "Update!");
-        } catch (\Throwable $e) {
-            DB::rollBack();
-
-            return $this->errorResponse([$e->getMessage()], "Something went wrong.", 404);
-        } catch (\Throwable $t) {
-            DB::rollBack();
-
-            return $this->errorResponse([$t->getMessage()], "Something went wrong.", 404);
-        }
+      return $this->errorResponse([], 'Something went wrong!', 404);
     }
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     * 
-     * @param  int  $id 
-     * 
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        try {
-            DB::beginTransaction();
+  /**
+   * Remove the specified resource from storage.
+   * 
+   * @param  int  $id 
+   * 
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function destroy($id)
+  {
+    try {
+      DB::beginTransaction();
 
-            $data = Image::findOrFail($id);
+      $oData = Image::findOrFail($id);
+      
+      FileHelper::deleteFileStorage($oData->path);
+      $oData->delete();
 
-            FileHelper::deleteFileStorage($data->path);
+      DB::commit();
 
-            $data->delete();
+      return $this->successResponse([], null, 'Deleted!');
+    } catch (\Throwable) {
+      DB::rollBack();
 
-            DB::commit();
-
-            return $this->successResponse(ImageResource::make($data), null, "Delete!");
-        } catch (\Throwable $e) {
-            DB::rollBack();
-
-            return $this->errorResponse([$e->getMessage()], "Something went wrong.", 404);
-        } catch (\Throwable $t) {
-            DB::rollBack();
-
-            return $this->errorResponse([$t->getMessage()], "Something went wrong.", 404);
-        }
+      return $this->errorResponse([], 'Something went wrong!', 404);
     }
+  }
 }

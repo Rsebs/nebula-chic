@@ -7,26 +7,26 @@ class PaginationHelper
   /**
    * Create a formatted array containing pagination information.
    *
-   * @param \Illuminate\Pagination\LengthAwarePaginator $paginate
+   * @param \Illuminate\Pagination\LengthAwarePaginator $oPaginate
    *
    * @return array
    */
-  public static function createPagination($paginate)
+  public static function createPagination($oPaginate)
   {
-    $paginate = $paginate->toArray();
+    $aPaginate = $oPaginate->toArray();
 
     return [
-      "current_page" => $paginate["current_page"],
-      "first_page_url" => $paginate["first_page_url"],
-      "from" => $paginate["from"],
-      "last_page" => $paginate["last_page"],
-      "last_page_url" => $paginate["last_page_url"],
-      "links" => $paginate["links"],
-      "next_page_url" => $paginate["next_page_url"],
-      "per_page" => $paginate["per_page"],
-      "prev_page_url" => $paginate["prev_page_url"],
-      "to" => $paginate["to"],
-      "total" => $paginate["total"],
+      'current_page' => $aPaginate['current_page'],
+      'first_page_url' => $aPaginate['first_page_url'],
+      'from' => $aPaginate['from'],
+      'last_page' => $aPaginate['last_page'],
+      'last_page_url' => $aPaginate['last_page_url'],
+      'links' => $aPaginate['links'],
+      'next_page_url' => $aPaginate['next_page_url'],
+      'per_page' => $aPaginate['per_page'],
+      'prev_page_url' => $aPaginate['prev_page_url'],
+      'to' => $aPaginate['to'],
+      'total' => $aPaginate['total'],
     ];
   }
 }
