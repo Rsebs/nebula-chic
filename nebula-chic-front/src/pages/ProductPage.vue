@@ -45,7 +45,7 @@
           <div class="col-12 col-md-6">
             <CarouselView
               sImgSource="http://127.0.0.1:8000"
-              :aImages="sImagesProduct"
+              :aImages="aImagesProduct"
               :thumbnails="true"
             />
           </div>
@@ -86,7 +86,7 @@ export default defineComponent({
         }
 
         oProduct.value = oResponse.data;
-        sImagesProduct.value = oProduct.value.images.map(
+        aImagesProduct.value = oProduct.value.images.map(
           (oImage) => oImage.path
         );
 
@@ -98,14 +98,24 @@ export default defineComponent({
     }
 
     function onAddToCart(oProduct) {
-      const toCart = {
+      const oToCart = {
         id: oProduct.id,
         name: oProduct.name,
         price: oProduct.price,
         image: oProduct.images[0].path,
+        amount: 1,
       };
 
-      oProductStore.onAddProductToCart(toCart);
+      if (
+        oProductStore.aCart.some(
+          (oProductCart) => oProductCart.id === oProduct.id
+        )
+      ) {
+        oProductStore.onChangeAmountProduct(oProduct);
+      } else {
+        oProductStore.onAddProductToCart(oToCart);
+      }
+
       onShowNotify(t('lblProductAdd'));
     }
 
@@ -114,12 +124,12 @@ export default defineComponent({
 
     const bLoading = ref(false);
     const oProduct = ref({});
-    const sImagesProduct = ref([]);
+    const aImagesProduct = ref([]);
 
     return {
       bLoading,
       oProduct,
-      sImagesProduct,
+      aImagesProduct,
       onAddToCart,
     };
   },

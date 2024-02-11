@@ -13,19 +13,72 @@
 
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>
-            <template v-for="oProduct in oProductStore.aCart" :key="oProduct.id">
-              <q-item v-ripple>
+            <template v-if="oProductStore.aCart.length">
+              <template
+                v-for="oProduct in oProductStore.aCart"
+                :key="oProduct.id"
+              >
+                <q-item>
+                  <q-item-section avatar>
+                    <q-avatar rounded>
+                      <img :src="`http://127.0.0.1:8000${oProduct.image}`" />
+                    </q-avatar>
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label lines="1">
+                      {{ oProduct.name }}
+                    </q-item-label>
+                    <q-item-label caption lines="1">
+                      ${{ oProduct.price }}
+                    </q-item-label>
+                    <q-item-label caption lines="1">
+                      {{ $t('lblAmount') }}: {{ oProduct.amount }}
+                    </q-item-label>
+                  </q-item-section>
+
+                  <q-item-section side top>
+                    <q-btn
+                      @click="oProductStore.onChangeAmountProduct(oProduct)"
+                      size="sm"
+                      flat
+                      color="green"
+                      icon="bi-plus"
+                    />
+                    <q-btn
+                      @click="
+                        oProductStore.onChangeAmountProduct(oProduct, false)
+                      "
+                      size="sm"
+                      flat
+                      color="red"
+                      icon="bi-dash"
+                    />
+                    <q-btn
+                      @click="oProductStore.onRemoveProduct(oProduct)"
+                      size="sm"
+                      flat
+                      color="red"
+                      icon="bi-x"
+                    />
+                  </q-item-section>
+                </q-item>
+                <q-separator />
+              </template>
+              <q-item>
                 <q-item-section>
-                  <q-item-label>{{ oProduct.name }}</q-item-label>
-                  <q-item-label>{{ oProduct.price }}</q-item-label>
-                </q-item-section>
-                <q-item-section avatar>
-                  <q-avatar rounded>
-                    <img :src="`http://127.0.0.1:8000${oProduct.image}`" />
-                  </q-avatar>
+                  <q-btn :label="$t('lblBuy')" color="secondary" />
                 </q-item-section>
               </q-item>
-              <q-separator />
+            </template>
+            <template v-else>
+              <q-item>
+                <q-item-section>
+                  <q-item-label>
+                    <strong>{{ $t('lblNoProducts') }}</strong>
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
             </template>
           </q-list>
         </q-btn-dropdown>

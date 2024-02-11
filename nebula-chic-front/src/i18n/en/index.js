@@ -21,6 +21,8 @@ export default {
   lblStores: 'Stores',
   lblSizes: 'Sizes',
   lblCart: 'Cart',
+  lblAmount: 'Amount',
+  lblBuy: 'Buy',
 
   lblEmail: 'Email',
   lblPassword: 'Password',
@@ -36,6 +38,7 @@ export default {
   lblSuccess: 'Success',
   lblMessageError: 'Something went wrong!',
   lblProductAdd: 'Product added to cart',
+  lblNoProducts: 'You do not have products in your cart yet',
 
   // Validations
   vRequired: 'This field is required',

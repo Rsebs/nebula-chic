@@ -21,6 +21,8 @@ export default {
   lblStores: 'Tiendas',
   lblSizes: 'Tallas',
   lblCart: 'Carrito',
+  lblAmount: 'Cantidad',
+  lblBuy: 'Comprar',
 
   lblEmail: 'Correo electrónico',
   lblPassword: 'Contraseña',
@@ -36,6 +38,7 @@ export default {
   lblSuccess: 'Éxito',
   lblMessageError: '¡Algo salió mal!',
   lblProductAdd: 'Producto agregado al carrito',
+  lblNoProducts: 'Aún no tienes productos en el carrito',
 
   // Validations
   vRequired: 'Este campo es requerido',
