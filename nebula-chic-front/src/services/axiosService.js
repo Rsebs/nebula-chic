@@ -21,4 +21,14 @@ export default {
       return error.response.data;
     }
   },
+
+  // Method POST
+  async onAxiosPost(sEndpoint, mBody) {
+    try {
+      const oResponse = await oApiClient.post(sEndpoint, mBody, oConfigBase);
+      return oResponse.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 };

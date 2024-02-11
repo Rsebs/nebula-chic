@@ -67,7 +67,11 @@
               </template>
               <q-item>
                 <q-item-section>
-                  <q-btn :label="$t('lblBuy')" color="secondary" />
+                  <q-btn
+                    @click="onBuyProducts"
+                    :label="$t('lblBuy')"
+                    color="secondary"
+                  />
                 </q-item-section>
               </q-item>
             </template>
@@ -114,6 +118,8 @@
 import { defineComponent, ref } from 'vue';
 import MenuView from 'src/components/MenuView.vue';
 import { useProductStore } from 'src/stores/product';
+import axiosService from 'src/services/axiosService';
+import { onShowNotify } from 'src/services/notifyService';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -121,12 +127,40 @@ export default defineComponent({
     MenuView,
   },
   setup() {
+    const onBuyProducts = async () => {
+      const aCart = oProductStore.aCart.map((oProduct) => {
+        return {
+          product_id: oProduct.id,
+          amount: oProduct.amount,
+          user_id: 1, // User temporal hasta crear el login
+        };
+      });
+
+      const aBody = {
+        cart: aCart,
+      };
+
+      try {
+        const oResponse = await axiosService.onAxiosPost('purchases', aBody);
+
+        if (oResponse.statusCode !== 201) {
+          throw oResponse;
+        }
+
+        onShowNotify(oResponse.message);
+      } catch (error) {
+        onShowNotify(error.message, true);
+        console.error(error);
+      }
+    };
+
     const oProductStore = useProductStore();
 
     return {
       drawer: ref(false),
       miniState: ref(true),
       oProductStore,
+      onBuyProducts,
     };
   },
 });
