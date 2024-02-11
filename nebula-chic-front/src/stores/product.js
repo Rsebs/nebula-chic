@@ -9,4 +9,7 @@ export const useProductStore = defineStore('cart', {
       this.aCart.push(oProduct);
     },
   },
+  persist: {
+    enabled: true,
+  }
 });
