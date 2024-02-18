@@ -1,111 +1,32 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="bi-list" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+        />
 
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="~assets/logo.svg" />
-          </q-avatar>
-          Nebula Chic
-        </q-toolbar-title>
+        <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
-          <q-list>
-            <template v-if="oProductStore.aCart.length">
-              <template
-                v-for="oProduct in oProductStore.aCart"
-                :key="oProduct.id"
-              >
-                <q-item>
-                  <q-item-section avatar>
-                    <q-avatar rounded>
-                      <img :src="`http://127.0.0.1:8000${oProduct.image}`" />
-                    </q-avatar>
-                  </q-item-section>
-
-                  <q-item-section>
-                    <q-item-label lines="1">
-                      {{ oProduct.name }}
-                    </q-item-label>
-                    <q-item-label caption lines="1">
-                      ${{ oProduct.price }}
-                    </q-item-label>
-                    <q-item-label caption lines="1">
-                      {{ $t('lblAmount') }}: {{ oProduct.amount }}
-                    </q-item-label>
-                  </q-item-section>
-
-                  <q-item-section side top>
-                    <q-btn
-                      @click="oProductStore.onChangeAmountProduct(oProduct)"
-                      size="sm"
-                      flat
-                      color="green"
-                      icon="bi-plus"
-                    />
-                    <q-btn
-                      @click="
-                        oProductStore.onChangeAmountProduct(oProduct, false)
-                      "
-                      size="sm"
-                      flat
-                      color="red"
-                      icon="bi-dash"
-                    />
-                    <q-btn
-                      @click="oProductStore.onRemoveProduct(oProduct)"
-                      size="sm"
-                      flat
-                      color="red"
-                      icon="bi-x"
-                    />
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-              </template>
-              <q-item>
-                <q-item-section>
-                  <q-btn
-                    @click="onBuyProducts"
-                    :label="$t('lblBuy')"
-                    color="secondary"
-                  />
-                </q-item-section>
-              </q-item>
-            </template>
-            <template v-else>
-              <q-item>
-                <q-item-section>
-                  <q-item-label>
-                    <strong>{{ $t('lblNoProducts') }}</strong>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-list>
-        </q-btn-dropdown>
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="drawer"
-      show-if-above
-      :mini="miniState"
-      @mouseover="miniState = false"
-      @mouseout="miniState = true"
-      mini-to-overlay
-      :width="200"
-      :breakpoint="500"
-      bordered
-      :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-    >
-      <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
-        <q-list padding>
-          <MenuView />
-        </q-list>
-      </q-scroll-area>
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+      <q-list>
+        <q-item-label header> Essential Links </q-item-label>
+
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -114,54 +35,60 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue';
-import MenuView from 'src/components/MenuView.vue';
-import { useProductStore } from 'src/stores/product';
-import axiosService from 'src/services/axiosService';
-import { onShowNotify } from 'src/services/notifyService';
+<script setup lang="ts">
+import { ref } from 'vue';
+import EssentialLink, {
+  EssentialLinkProps,
+} from 'components/EssentialLink.vue';
 
-export default defineComponent({
-  name: 'MainLayout',
-  components: {
-    MenuView,
+const essentialLinks: EssentialLinkProps[] = [
+  {
+    title: 'Docs',
+    caption: 'quasar.dev',
+    icon: 'school',
+    link: 'https://quasar.dev',
   },
-  setup() {
-    const onBuyProducts = async () => {
-      const aCart = oProductStore.aCart.map((oProduct) => {
-        return {
-          product_id: oProduct.id,
-          amount: oProduct.amount,
-          user_id: 1, // User temporal hasta crear el login
-        };
-      });
-
-      const aBody = {
-        cart: aCart,
-      };
-
-      try {
-        const oResponse = await axiosService.onAxiosPost('purchases', aBody);
-
-        if (oResponse.statusCode !== 201) {
-          throw oResponse;
-        }
-
-        onShowNotify(oResponse.message);
-      } catch (error) {
-        onShowNotify(error.message, true);
-        console.error(error);
-      }
-    };
-
-    const oProductStore = useProductStore();
-
-    return {
-      drawer: ref(false),
-      miniState: ref(true),
-      oProductStore,
-      onBuyProducts,
-    };
+  {
+    title: 'Github',
+    caption: 'github.com/quasarframework',
+    icon: 'code',
+    link: 'https://github.com/quasarframework',
   },
-});
+  {
+    title: 'Discord Chat Channel',
+    caption: 'chat.quasar.dev',
+    icon: 'chat',
+    link: 'https://chat.quasar.dev',
+  },
+  {
+    title: 'Forum',
+    caption: 'forum.quasar.dev',
+    icon: 'record_voice_over',
+    link: 'https://forum.quasar.dev',
+  },
+  {
+    title: 'Twitter',
+    caption: '@quasarframework',
+    icon: 'rss_feed',
+    link: 'https://twitter.quasar.dev',
+  },
+  {
+    title: 'Facebook',
+    caption: '@QuasarFramework',
+    icon: 'public',
+    link: 'https://facebook.quasar.dev',
+  },
+  {
+    title: 'Quasar Awesome',
+    caption: 'Community Quasar projects',
+    icon: 'favorite',
+    link: 'https://awesome.quasar.dev',
+  },
+];
+
+const leftDrawerOpen = ref(false);
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 </script>

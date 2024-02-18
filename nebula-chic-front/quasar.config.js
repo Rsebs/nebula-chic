@@ -8,6 +8,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+
 const { configure } = require('quasar/wrappers');
 const path = require('path');
 
@@ -19,7 +20,7 @@ module.exports = configure(function (/* ctx */) {
       // exclude: [],
       // rawOptions: {},
       warnings: true,
-      errors: true,
+      errors: true
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -28,19 +29,23 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['i18n', 'axios'],
+    boot: [
+      'i18n',
+      'axios',
+    ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-    css: ['app.scss'],
+    css: [
+      'app.scss'
+    ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // "ionicons-v4",
-      // 'mdi-v5',
+      // 'ionicons-v4',
+      // 'mdi-v7',
       // 'fontawesome-v6',
       // 'eva-icons',
-      'themify',
-      'bootstrap-icons',
+      // 'themify',
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
@@ -51,8 +56,8 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
-        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
-        node: 'node16',
+        browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
+        node: 'node20'
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -75,27 +80,24 @@ module.exports = configure(function (/* ctx */) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        [
-          '@intlify/vite-plugin-vue-i18n',
-          {
-            // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-            // compositionOnly: false,
+        ['@intlify/vite-plugin-vue-i18n', {
+          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+          // compositionOnly: false,
 
-            // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
-            // you need to set `runtimeOnly: false`
-            // runtimeOnly: false,
+          // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
+          // you need to set `runtimeOnly: false`
+          // runtimeOnly: false,
 
-            // you need to set i18n resource including paths !
-            include: path.resolve(__dirname, './src/i18n/**'),
-          },
-        ],
-      ],
+          // you need to set i18n resource including paths !
+          include: path.resolve(__dirname, './src/i18n/**')
+        }]
+      ]
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      open: true, // opens browser window automatically
+      open: true // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
@@ -113,14 +115,14 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify'],
+      plugins: []
     },
 
     // animations: 'all', // --- includes all animations
     // https://v2.quasar.dev/options/animations
     animations: [],
 
-    // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#property-sourcefiles
+    // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#sourcefiles
     // sourceFiles: {
     //   rootComponent: 'src/App.vue',
     //   router: 'src/router/index',
@@ -149,8 +151,8 @@ module.exports = configure(function (/* ctx */) {
       // (gets superseded if process.env.PORT is specified at runtime)
 
       middlewares: [
-        'render', // keep this as last one
-      ],
+        'render' // keep this as last one
+      ]
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
@@ -174,7 +176,7 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true,
+      hideSplashscreen: true
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
@@ -182,18 +184,19 @@ module.exports = configure(function (/* ctx */) {
       // extendElectronMainConf (esbuildConf)
       // extendElectronPreloadConf (esbuildConf)
 
-      // specify the debugging port to use for the Electron app when running in development mode
       inspectPort: 5858,
 
       bundler: 'packager', // 'packager' or 'builder'
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
+
         // Windows only
         // win32metadata: { ... }
       },
@@ -201,16 +204,18 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'nebula-chic-front',
-      },
+        appId: 'nebula-chic-front'
+      }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
     bex: {
-      contentScripts: ['my-content-script'],
+      contentScripts: [
+        'my-content-script'
+      ],
 
       // extendBexScriptsConf (esbuildConf) {}
       // extendBexManifestJson (json) {}
-    },
+    }
   };
 });
