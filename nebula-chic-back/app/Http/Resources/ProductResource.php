@@ -19,7 +19,7 @@ class ProductResource extends JsonResource
       'name' => $this->name,
       'price' => $this->price,
       'description' => $this->description,
-      'producType' => ProductTypeResource::make($this->productType),
+      'productType' => ProductTypeResource::make($this->productType),
       'sizes' => SizeResource::collection($this->sizes),
       'images' => ImageResource::collection($this->images)
     ];
