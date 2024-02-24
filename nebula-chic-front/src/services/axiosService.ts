@@ -21,7 +21,7 @@ export default {
 
   // POST
   async onAxiosPost(endpoint: string, body: Array<object> | object) {
-    const response = await oApiClient.post<ApiResponse>(endpoint, body);
+    const response = await oApiClient.post<ApiResponse>(endpoint, body, configBase);
     return response.data;
   },
 };
