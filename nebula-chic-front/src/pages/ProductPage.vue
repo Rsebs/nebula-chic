@@ -58,7 +58,7 @@ import axiosService from 'src/services/axiosService';
 import { useProductStore } from 'src/stores/product';
 import { onShowNotify } from 'src/services/notifyService';
 import { Product } from 'src/interfaces/Product';
-import { ProductCart } from '../types/Product';
+import { ProductCart } from '../interfaces/Product';
 
 const { t } = useI18n();
 const storeProduct = useProductStore();
