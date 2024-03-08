@@ -6,7 +6,7 @@
 
         <q-toolbar-title>
           <q-avatar>
-            <img src="~assets/logo.svg" />
+            <q-img src="~assets/logo.svg" />
           </q-avatar>
           Nebula Chic
         </q-toolbar-title>
@@ -21,7 +21,7 @@
                 <q-item>
                   <q-item-section avatar>
                     <q-avatar rounded>
-                      <img
+                      <q-img
                         :src="`http://127.0.0.1:8000${oProduct.imagePath}`"
                       />
                     </q-avatar>

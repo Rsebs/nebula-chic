@@ -13,11 +13,11 @@
             {{ $t('lblSizes') }}
             <div class="row q-gutter-xs">
               <q-badge
-                v-for="oSize in product.sizes"
-                :key="oSize.id"
+                v-for="{ id, cod } in product.sizes"
+                :key="id"
                 color="secondary"
               >
-                {{ oSize.cod }}
+                {{ cod }}
               </q-badge>
             </div>
           </div>
@@ -58,34 +58,11 @@ import axiosService from 'src/services/axiosService';
 import { useProductStore } from 'src/stores/product';
 import { onShowNotify } from 'src/services/notifyService';
 import { Product } from 'src/interfaces/Product';
+import { productDefault } from '../interfaces/defaults/ProductDefault';
 import { ProductCart } from '../interfaces/Product';
 
 const { t } = useI18n();
 const storeProduct = useProductStore();
-
-const productDefault: Product = {
-  id: 0,
-  description: '',
-  images: [
-    {
-      id: 0,
-      path: '',
-    },
-  ],
-  name: '',
-  price: 0,
-  productType: {
-    id: 0,
-    name: 'Accesorio',
-  },
-  sizes: [
-    {
-      cod: 'XS',
-      id: 0,
-      name: '',
-    },
-  ],
-};
 
 const isLoading = ref(false);
 const product: Ref<Product> = ref(productDefault);
@@ -107,7 +84,7 @@ const onGetProduct = async () => {
     if (response.statusCode !== 200) throw new Error('Something went wrong!');
 
     product.value = response.data;
-    imagesProduct.value = product.value.images.map((image) => image.path);
+    imagesProduct.value = product.value.images.map(({ path }) => path);
 
     isLoading.value = false;
   } catch (error) {
@@ -116,16 +93,16 @@ const onGetProduct = async () => {
   }
 };
 
-const onAddToCart = (product: Product) => {
+const onAddToCart = ({ id, name, price, images }: Product) => {
   const productCart: ProductCart = {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    imagePath: product.images[0].path,
+    id,
+    name,
+    price,
+    imagePath: images[0].path,
     amount: 1,
   };
 
-  if (storeProduct.cart.some((productCart) => productCart.id === product.id)) {
+  if (storeProduct.cart.some(({ id }) => id === product.value.id)) {
     storeProduct.onChangeAmountProduct(productCart);
   } else {
     storeProduct.onAddProductToCart(productCart);
