@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
-    <div v-if="isLoading" class="row justify-center">
+    <section v-if="isLoading" class="row justify-center">
       <q-spinner-oval color="accent" size="4em" />
-    </div>
-    <div v-else class="row">
+    </section>
+    <section v-else class="row">
       <div class="col-12 col-md-6">
         <p class="text-h5 text-center q-mb-md text-uppercase text-bold">
           {{ product.name }}
@@ -35,6 +35,7 @@
             color="secondary"
             icon="bi-cart2"
             @click="onAddToCart(product)"
+            class="q-mb-md"
           />
         </div>
       </div>
@@ -45,7 +46,7 @@
           :thumbnails="true"
         />
       </div>
-    </div>
+    </section>
   </q-page>
 </template>
 

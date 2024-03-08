@@ -10,12 +10,16 @@
     </q-img>
 
     <q-card-section>
-      <p class="card__description">
-        {{ product.description }}
-      </p>
+      <div class="card__content">
+        <p class="card__description">
+          {{ product.description }}
+        </p>
+      </div>
     </q-card-section>
 
-    <q-card-section> $ {{ product.price }} </q-card-section>
+    <q-card-section>
+      <p class="card__price">$ {{ product.price }}</p>
+    </q-card-section>
 
     <q-card-actions>
       <q-btn class="col-12" color="secondary" :to="`/product/${product.id}`">
@@ -37,9 +41,20 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
+@use '/src/css/quasar.variables.scss' as v;
+
 .card {
-  width: 100%;
   max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__price {
+    background: transparentize(v.$info, 0.7%);
+    display: inline;
+    padding: 5px;
+    border-radius: 3px;
+  }
 
   &__description {
     display: -webkit-box;

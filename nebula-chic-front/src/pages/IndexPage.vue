@@ -6,22 +6,26 @@
       :autoplay="5000"
     />
     <div class="q-pa-md container">
-      <GridProductsView endpoint="products?type=1&perPage=8" />
+      <section class="q-my-md">
+        <GridProductsView endpoint="products?type=1&perPage=8" />
+      </section>
 
-      <div class="q-my-xl">
+      <section class="q-my-lg">
         <q-img
           src="src/assets/img/banner.png"
           alt="image banner"
-          fit="contain"
           class="rounded-borders"
+          fit="contain"
         />
-      </div>
+      </section>
 
-      <div class="q-my-xl promotions">
+      <section class="q-my-lg promotions">
         <h2 class="text-center">{{ $t('lblEspecialOffers') }}</h2>
-      </div>
+      </section>
 
-      <GridProductsView endpoint="products?type=2&perPage=8" />
+      <section class="q-my-md">
+        <GridProductsView endpoint="products?type=2&perPage=8" />
+      </section>
     </div>
   </q-page>
 </template>

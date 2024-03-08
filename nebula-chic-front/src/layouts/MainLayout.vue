@@ -4,12 +4,19 @@
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="bi-list" />
 
-        <q-toolbar-title>
-          <q-avatar>
-            <q-img src="~assets/logo.svg" />
-          </q-avatar>
-          Nebula Chic
-        </q-toolbar-title>
+        <q-btn :to="{ name: 'index' }">
+          <div class="row items-center q-col-gutter-x-sm">
+            <q-img
+              src="~assets/logo.svg"
+              alt="Nebula Chic Logo"
+              width="3.5em"
+              fit
+            />
+            <span class="text-capitalize">Nebula Chic</span>
+          </div>
+        </q-btn>
+
+        <q-space />
 
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>

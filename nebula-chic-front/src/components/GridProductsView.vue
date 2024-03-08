@@ -2,7 +2,7 @@
   <div v-if="isLoading" class="row justify-center q-my-xl">
     <q-spinner-oval color="accent" size="4em" />
   </div>
-  <div v-else class="row grid-cards q-gutter-lg q-mt-lg">
+  <div v-else class="grid-cards q-gutter-col-lg q-mt-lg">
     <CardProductView
       v-for="product in products"
       :key="product.id"

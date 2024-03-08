@@ -15,3 +15,12 @@
     @content;
   }
 }
+
+@mixin scrollHorizontal {
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+
+  > * {
+    scroll-snap-align: center;
+  }
+}
