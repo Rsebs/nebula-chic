@@ -1,8 +1,8 @@
 import { Notify } from 'quasar';
 
-export const onShowNotify = (sMessage: string, error: boolean = false) => {
+export const onShowNotify = (message: string, error: boolean = false) => {
   return Notify.create({
-    message: sMessage,
+    message,
     position: 'top',
     type: error ? 'negative' : 'positive',
   });

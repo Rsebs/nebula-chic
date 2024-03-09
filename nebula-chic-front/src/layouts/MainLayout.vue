@@ -19,9 +19,9 @@
 
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>
-            <template v-if="oProductStore.cart.length">
+            <template v-if="productStore.cart.length">
               <template
-                v-for="oProduct in oProductStore.cart"
+                v-for="oProduct in productStore.cart"
                 :key="oProduct.id"
               >
                 <q-item>
@@ -47,7 +47,7 @@
 
                   <q-item-section side top>
                     <q-btn
-                      @click="oProductStore.onChangeAmountProduct(oProduct)"
+                      @click="productStore.onChangeAmountProduct(oProduct)"
                       size="sm"
                       flat
                       color="green"
@@ -55,7 +55,7 @@
                     />
                     <q-btn
                       @click="
-                        oProductStore.onChangeAmountProduct(oProduct, false)
+                        productStore.onChangeAmountProduct(oProduct, false)
                       "
                       size="sm"
                       flat
@@ -136,28 +136,28 @@ const { t } = useI18n();
 
 const drawer = ref(false);
 const miniState = ref(true);
-const oProductStore = useProductStore();
+const productStore = useProductStore();
 
 const onBuyProducts = async () => {
-  const cart = oProductStore.cart.map((oProduct) => {
+  const cart = productStore.cart.map(({ id, amount }) => {
     return {
-      product_id: oProduct.id,
-      amount: oProduct.amount,
+      product_id: id,
+      amount,
       user_id: 1, // User temporal hasta crear el login
     };
   });
 
   const aBody = {
-    cart: cart,
+    cart,
   };
 
   try {
-    const oResponse = await axiosService.onAxiosPost('purchases', aBody);
+    const response = await axiosService.onAxiosPost('purchases', aBody);
 
-    if (oResponse.statusCode !== 201) throw new Error('Something went wrong!');
+    if (response.statusCode !== 201) throw new Error('Something went wrong!');
 
-    onShowNotify(oResponse.message);
-    oProductStore.cart = []; // Revisar eliminar el carrito al realizar compra
+    onShowNotify(response.message);
+    productStore.cart = []; // Revisar eliminar el carrito al realizar compra
   } catch (error) {
     onShowNotify(t('lblMessageError'));
     console.error(error);
@@ -167,7 +167,7 @@ const onBuyProducts = async () => {
 const onRemoveProduct = (product: ProductCart) => {
   onShowNotifyActions(
     t('lblRemoveProductCart'),
-    () => oProductStore.onRemoveProduct(product),
+    () => productStore.onRemoveProduct(product)
   );
 };
 </script>
