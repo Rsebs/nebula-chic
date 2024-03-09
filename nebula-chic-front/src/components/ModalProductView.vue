@@ -45,6 +45,7 @@
           color="secondary"
           icon="bi-cart2"
           class="q-mb-md"
+          @click="onAddToCart(product)"
         />
       </q-card-actions>
     </q-card>
@@ -53,8 +54,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { Product } from '../interfaces/Product';
+import { Product, ProductCart } from '../interfaces/Product';
 import CarouselView from './CarouselView.vue';
+import { onShowNotify } from 'src/services/notifyService';
+import { useI18n } from 'vue-i18n';
+import { useProductStore } from 'src/stores/product';
 
 const { value, product } = defineProps({
   value: {
@@ -67,12 +71,33 @@ const { value, product } = defineProps({
   },
 });
 
+const { t } = useI18n();
+const storeProduct = useProductStore();
+
 const showModal = ref(value);
 
 const imagesProduct = product.images.map((image) => image.path);
 
 const onCloseModal = () => {
   showModal.value = false;
+};
+
+const onAddToCart = ({ id, name, price, images }: Product) => {
+  const productCart: ProductCart = {
+    id,
+    name,
+    price,
+    imagePath: images[0].path,
+    amount: 1,
+  };
+
+  if (storeProduct.cart.some(({ id }) => id === product.id)) {
+    storeProduct.onChangeAmountProduct(productCart);
+  } else {
+    storeProduct.onAddProductToCart(productCart);
+  }
+
+  onShowNotify(t('lblProductAdd'));
 };
 </script>
 
