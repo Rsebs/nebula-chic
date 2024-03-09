@@ -61,9 +61,10 @@
                       flat
                       color="red"
                       icon="bi-dash"
+                      :disabled="oProduct.amount === 1 ? true : false"
                     />
                     <q-btn
-                      @click="oProductStore.onRemoveProduct(oProduct)"
+                      @click="onRemoveProduct(oProduct)"
                       size="sm"
                       flat
                       color="red"
@@ -126,9 +127,10 @@
 import MenuView from 'src/components/MenuView.vue';
 import { ref } from 'vue';
 import { useProductStore } from 'src/stores/product';
-import { onShowNotify } from 'src/services/notifyService';
+import { onShowNotify, onShowNotifyActions } from 'src/services/notifyService';
 import axiosService from 'src/services/axiosService';
 import { useI18n } from 'vue-i18n';
+import { ProductCart } from 'src/interfaces/Product';
 
 const { t } = useI18n();
 
@@ -160,5 +162,12 @@ const onBuyProducts = async () => {
     onShowNotify(t('lblMessageError'));
     console.error(error);
   }
+};
+
+const onRemoveProduct = (product: ProductCart) => {
+  onShowNotifyActions(
+    t('lblRemoveProductCart'),
+    () => oProductStore.onRemoveProduct(product),
+  );
 };
 </script>

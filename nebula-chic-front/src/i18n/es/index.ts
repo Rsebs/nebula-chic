@@ -9,7 +9,7 @@ export default {
   lblPrivacyPolicy: 'Política de privacidad',
   lblCookiesPolicy: 'Política de cookies',
   lblCopyright: 'Todos los derechos reservados',
-  lblThanksForContact: 'Gracias por contactarnos! Espera nuesta respuesta',
+  lblThanksForContact: 'Gracias por contactarnos! Espera nuestra respuesta',
   lblClothes: 'Prendas',
   lblAccessories: 'Accesorios',
   lblProducts: 'Productos',
@@ -33,6 +33,7 @@ export default {
   lblAddress: 'Dirección',
   lblPhone: 'Teléfono',
   lblYourMessageHere: 'Escribe tu mensaje aquí',
+  lblRemoveProductCart: '¿Quieres eliminar este producto del carrito?',
 
   lblLoading: 'Cargando...',
   lblError: 'Error',

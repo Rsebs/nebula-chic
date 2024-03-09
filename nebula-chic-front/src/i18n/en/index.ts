@@ -33,6 +33,7 @@ export default {
   lblAddress: 'Address',
   lblPhone: 'Phone',
   lblYourMessageHere: 'Type your message here',
+  lblRemoveProductCart: 'Do you want to remove this product from the cart?',
 
   lblLoading: 'Loading...',
   lblError: 'Error',
