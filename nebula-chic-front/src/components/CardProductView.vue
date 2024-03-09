@@ -22,15 +22,20 @@
     </q-card-section>
 
     <q-card-actions>
-      <q-btn class="col-12" color="secondary" :to="`/product/${product.id}`">
+      <!-- <q-btn class="col-12" color="secondary" :to="`/product/${product.id}`">
         {{ $t('btnSeeProduct') }}
-      </q-btn>
+      </q-btn> -->
+      <q-btn class="col-12" color="secondary" :label="$t('btnSeeProduct')" @click="onShowModal"/>
     </q-card-actions>
   </q-card>
+
+  <ModalProductView :value="showModal" :product="product" :key="key"/>
 </template>
 
 <script setup lang="ts">
 import { Product } from 'src/interfaces/Product';
+import { ref } from 'vue';
+import ModalProductView from './ModalProductView.vue';
 
 defineProps({
   product: {
@@ -38,6 +43,14 @@ defineProps({
     required: true,
   },
 });
+
+const showModal = ref(false);
+const key = ref(0);
+
+const onShowModal = () => {
+  showModal.value = true;
+  key.value++;
+};
 </script>
 
 <style lang="scss" scoped>
