@@ -10,6 +10,7 @@
               src="~assets/logo.svg"
               alt="Nebula Chic Logo"
               width="3.5em"
+              fit="contain"
             />
             <span class="text-capitalize">Nebula Chic</span>
           </div>
