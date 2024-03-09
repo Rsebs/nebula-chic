@@ -17,7 +17,7 @@ class Image extends Model
 
   /**
    * Relationship One to Many (Inverse)
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
    */
   public function product()

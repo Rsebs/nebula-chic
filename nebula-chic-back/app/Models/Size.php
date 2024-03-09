@@ -16,7 +16,7 @@ class Size extends Model
 
   /**
    * Relationship Many to Many
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
    */
   public function products()

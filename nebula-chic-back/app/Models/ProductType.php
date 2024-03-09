@@ -15,7 +15,7 @@ class ProductType extends Model
 
   /**
    * Relationship One to Many
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\HasMany
    */
   public function products()

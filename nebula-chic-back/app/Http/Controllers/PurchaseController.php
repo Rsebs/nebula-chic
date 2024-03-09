@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
-use App\Http\Requests\UpdatePurchaseRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +16,6 @@ class PurchaseController extends Controller
    */
   public function index()
   {
-    //
   }
 
   /**
@@ -47,15 +45,13 @@ class PurchaseController extends Controller
    */
   public function show($id)
   {
-    //
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdatePurchaseRequest $request, $id)
+  public function update()
   {
-    //
   }
 
   /**
@@ -63,6 +59,5 @@ class PurchaseController extends Controller
    */
   public function destroy($id)
   {
-    //
   }
 }

@@ -18,7 +18,7 @@ class Product extends Model
 
   /**
    * Relationship One to Many (Inverse)
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
    */
   public function productType()
@@ -28,7 +28,7 @@ class Product extends Model
 
   /**
    * Relationship One to Many
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\HasMany
    */
   public function images()
@@ -38,7 +38,7 @@ class Product extends Model
 
   /**
    * Relationship Many to Many
-   * 
+   *
    * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
    */
   public function sizes()
