@@ -70,10 +70,10 @@ const onShowModal = () => {
 
   &__image {
     transition-duration: 0.2s;
-  }
 
-  &__image:hover {
-    scale: 1.08;
+    &:hover {
+      scale: 1.08;
+    }
   }
 
   &__price {
