@@ -1,6 +1,9 @@
 <template>
   <q-card class="card">
-    <q-img :src="`http://127.0.0.1:8000${product.images[0].path}`">
+    <q-img
+      :src="`http://127.0.0.1:8000${product.images[0].path}`"
+      class="card__image"
+    >
       <div class="absolute-bottom text-h6">
         <p>{{ product.name }}</p>
       </div>
@@ -22,14 +25,16 @@
     </q-card-section>
 
     <q-card-actions>
-      <!-- <q-btn class="col-12" color="secondary" :to="`/product/${product.id}`">
-        {{ $t('btnSeeProduct') }}
-      </q-btn> -->
-      <q-btn class="col-12" color="secondary" :label="$t('btnSeeProduct')" @click="onShowModal"/>
+      <q-btn
+        class="col-12"
+        color="secondary"
+        :label="$t('btnSeeProduct')"
+        @click="onShowModal"
+      />
     </q-card-actions>
   </q-card>
 
-  <ModalProductView :value="showModal" :product="product" :key="key"/>
+  <ModalProductView :value="showModal" :product="product" :key="key" />
 </template>
 
 <script setup lang="ts">
@@ -61,6 +66,15 @@ const onShowModal = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+
+  &__image {
+    transition-duration: 0.2s;
+  }
+
+  &__image:hover {
+    scale: 1.08;
+  }
 
   &__price {
     background: transparentize(v.$info, 0.7%);
