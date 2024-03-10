@@ -51,6 +51,7 @@ export default {
   btnLogin: 'Iniciar sesión',
   btnLogout: 'Cerrar sesión',
   btnRegister: 'Registrar',
+  btnCreateAccount: 'Crear cuenta',
   btnForgotPassword: '¿Olvidaste tu contraseña?',
   btnSubmit: 'Enviar',
   btnCancel: 'Cancelar',
@@ -77,4 +78,12 @@ export default {
   btnLanguage: 'Idioma',
   btnSeeProduct: 'Ver Producto',
   btnAddToCart: 'Agregar al carrito',
+
+  txtLog: 'Iniciar',
+  txtIn: 'Sesión',
+  txtCreate: 'Crear',
+  txtAccount: 'Cuenta',
+  txtYouDoNotHaveAnAccount: '¿No tienes una cuenta?',
+  txtDoYouAlreadyHaveAnAccount: '¿Ya tienes una cuenta?',
+  txtPasswordNoMatch: 'Las contraseñas no coinciden',
 };

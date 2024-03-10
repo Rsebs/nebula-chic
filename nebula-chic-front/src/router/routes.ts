@@ -5,6 +5,8 @@ import IndexPage from 'src/pages/IndexPage.vue';
 import AboutPage from 'src/pages/AboutPage.vue';
 import ContactPage from 'src/pages/ContactPage.vue';
 import ProductPage from 'src/pages/ProductPage.vue';
+import LoginPage from 'src/pages/LoginPage.vue';
+import CreateAccountPage from 'src/pages/CreateAccountPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -30,6 +32,16 @@ const routes: RouteRecordRaw[] = [
         path: '/product/:productId',
         name: 'product',
         component: ProductPage,
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: LoginPage,
+      },
+      {
+        path: '/createAccount',
+        name: 'createAccount',
+        component: CreateAccountPage,
       },
     ],
   },

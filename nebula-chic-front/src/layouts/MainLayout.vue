@@ -18,6 +18,7 @@
 
         <q-space />
 
+        <q-btn icon="bi-person-circle" :to="{ name: 'login' }" flat />
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>
             <template v-if="productStore.cart.length">
@@ -166,9 +167,8 @@ const onBuyProducts = async () => {
 };
 
 const onRemoveProduct = (product: ProductCart) => {
-  onShowNotifyActions(
-    t('lblRemoveProductCart'),
-    () => productStore.onRemoveProduct(product)
+  onShowNotifyActions(t('lblRemoveProductCart'), () =>
+    productStore.onRemoveProduct(product)
   );
 };
 </script>
