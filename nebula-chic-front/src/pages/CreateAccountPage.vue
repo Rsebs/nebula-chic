@@ -17,16 +17,26 @@
 
         <q-card-actions class="col-12">
           <q-input
+            v-model="name"
+            :label="$t('lblName')"
+            :rules="[validationRules.required]"
+            color="primary"
+            outlined
+            dense
+            class="col-12 col-sm-6 q-px-sm q-mb-sm"
+          />
+          <q-input
             v-model="email"
             :label="$t('lblEmail')"
             :rules="[validationRules.required, validationRules.email]"
             color="primary"
             outlined
             dense
-            class="col-12 q-px-sm q-mb-sm"
+            class="col-12 col-sm-6 q-px-sm q-mb-sm"
           />
           <q-input
             v-model="password"
+            type="password"
             :label="$t('lblPassword')"
             :rules="[validationRules.required]"
             color="primary"
@@ -36,6 +46,7 @@
           />
           <q-input
             v-model="confirmPassword"
+            type="password"
             :label="$t('lblConfirmPassword')"
             :rules="[validationRules.required]"
             color="primary"
@@ -70,16 +81,38 @@ import validationRules from 'src/utils/validationRules';
 import { RouterLink } from 'vue-router';
 import { onShowNotify } from 'src/services/notifyService';
 import { useI18n } from 'vue-i18n';
+import axiosService from 'src/services/axiosService';
 
 const { t } = useI18n();
 
+const name = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 
-const onCreateAccount = () => {
+const onCreateAccount = async () => {
   if (password.value !== confirmPassword.value)
     return onShowNotify(t('txtPasswordNoMatch'), true);
+
+  const body = {
+    name: name.value,
+    email: email.value,
+    password: password.value,
+  };
+
+  try {
+    const response = await axiosService.onAxiosPost('createUser', body);
+
+    if (response.statusCode !== 200) throw response;
+
+    console.log(response);
+  } catch (error) {
+    // FIXME: get error response
+    if (error) {
+      onShowNotify(error.message, true);
+    }
+    console.error(error);
+  }
 };
 </script>
 

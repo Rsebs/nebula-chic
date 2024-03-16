@@ -27,6 +27,7 @@
           />
           <q-input
             v-model="password"
+            type="password"
             :label="$t('lblPassword')"
             :rules="[validationRules.required]"
             color="primary"
