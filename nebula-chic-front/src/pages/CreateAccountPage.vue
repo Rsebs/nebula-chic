@@ -103,14 +103,12 @@ const onCreateAccount = async () => {
   try {
     const response = await axiosService.onAxiosPost('createUser', body);
 
-    if (response.statusCode !== 200) throw response;
+    if (response.statusCode !== 200)
+      throw new Error(`Error create user ${body.name}`);
 
     console.log(response);
   } catch (error) {
-    // FIXME: get error response
-    if (error) {
-      onShowNotify(error.message, true);
-    }
+    onShowNotify(`Error create user ${body.name}`, true);
     console.error(error);
   }
 };

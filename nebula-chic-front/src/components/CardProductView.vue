@@ -38,13 +38,13 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from 'src/interfaces/Product';
+import { ProductResponse } from 'src/interfaces/ProductResponse';
 import { ref } from 'vue';
 import ModalProductView from './ModalProductView.vue';
 
 defineProps({
   product: {
-    type: Object as () => Product,
+    type: Object as () => ProductResponse,
     required: true,
   },
 });
@@ -91,3 +91,4 @@ const onShowModal = () => {
   }
 }
 </style>
+src/interfaces/ProductResponse

@@ -132,7 +132,7 @@ import { useProductStore } from 'src/stores/product';
 import { onShowNotify, onShowNotifyActions } from 'src/services/notifyService';
 import axiosService from 'src/services/axiosService';
 import { useI18n } from 'vue-i18n';
-import { ProductCart } from 'src/interfaces/Product';
+import { ProductCart } from 'src/interfaces/ProductResponse';
 
 const { t } = useI18n();
 

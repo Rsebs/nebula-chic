@@ -1,20 +1,20 @@
-import { Product } from './Product';
+import { ProductResponse } from './ProductResponse';
 
-type DataResponse = Product
+type DataResponse = ProductResponse;
 
-export interface ApiResponse {
+export interface APIResponse {
   message: string;
   statusCode: number;
   data: DataResponse & DataResponse[];
-  paginate: Paginate;
+  paginate: Paginate | null;
 }
 
 export interface Paginate {
   current_page: number;
-  first_page_url: string;
+  first_page_url: string | null;
   from: number;
   last_page: number;
-  last_page_url: string;
+  last_page_url: string | null;
   links: Link[];
   next_page_url: null;
   per_page: number;

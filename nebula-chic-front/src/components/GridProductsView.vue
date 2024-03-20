@@ -12,21 +12,21 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from 'src/interfaces/Product';
+import { ProductResponse } from 'src/interfaces/ProductResponse';
 import axiosService from 'src/services/axiosService';
 import { onMounted, ref, Ref } from 'vue';
 import { onShowNotify } from 'src/services/notifyService';
 import CardProductView from './CardProductView.vue';
 import { useI18n } from 'vue-i18n';
 
-const props = defineProps({
+const { endpoint } = defineProps({
   endpoint: {
     type: String,
     required: true,
   },
 });
 
-const products: Ref<Product[]> = ref([]);
+const products: Ref<ProductResponse[]> = ref([]);
 const isLoading = ref(false);
 const { t } = useI18n();
 
@@ -37,16 +37,18 @@ onMounted(() => {
 const onFetchData = async () => {
   try {
     isLoading.value = true;
-    const response = await axiosService.onAxiosGet(props.endpoint);
+    const response = await axiosService.onAxiosGet(endpoint);
 
-    if (response.statusCode !== 200) throw new Error('Something went wrong!');
+    if (response.statusCode !== 200)
+      throw new Error(`Error fetching products ${endpoint}`);
 
     products.value = response.data;
     isLoading.value = false;
   } catch (error) {
     onShowNotify(t('lblMessageError'), true);
-    console.error(error);
     isLoading.value = false;
+    console.error(error);
   }
 };
 </script>
+src/interfaces/ProductResponse

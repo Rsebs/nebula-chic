@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { Product, ProductCart } from '../interfaces/Product';
+import { ProductResponse, ProductCart } from '../interfaces/ProductResponse';
 import CarouselView from './CarouselView.vue';
 import { onShowNotify } from 'src/services/notifyService';
 import { useI18n } from 'vue-i18n';
@@ -66,7 +66,7 @@ const { value, product } = defineProps({
     required: true,
   },
   product: {
-    type: Object as () => Product,
+    type: Object as () => ProductResponse,
     required: true,
   },
 });
@@ -82,7 +82,7 @@ const onCloseModal = () => {
   showModal.value = false;
 };
 
-const onAddToCart = ({ id, name, price, images }: Product) => {
+const onAddToCart = ({ id, name, price, images }: ProductResponse) => {
   const productCart: ProductCart = {
     id,
     name,
@@ -133,3 +133,4 @@ const onAddToCart = ({ id, name, price, images }: Product) => {
   }
 }
 </style>
+../interfaces/ProductResponse

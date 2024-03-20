@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ProductCart } from 'src/interfaces/Product';
+import { ProductCart } from 'src/interfaces/ProductResponse';
 
 const onCheckCart = (cart: Array<ProductCart>) =>
   cart.filter((oProduct) => oProduct.amount > 0);

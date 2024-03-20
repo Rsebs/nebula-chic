@@ -1,7 +1,7 @@
 type NameProductType = 'Accesorio' | 'Prenda';
 type CodProductSize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
-export interface Product {
+export interface ProductResponse {
   id: number;
   name: string;
   price: number;
@@ -35,10 +35,10 @@ export interface Size {
   cod: CodProductSize;
 }
 
-export type ProductId = Pick<Product, 'id'>;
-export type ProductName = Pick<Product, 'name'>;
-export type ProductPrice = Pick<Product, 'price'>;
-export type ProductDescription = Pick<Product, 'description'>;
-export type ProductProductType = Pick<Product, 'productType'>;
-export type ProductSizes = Pick<Product, 'sizes'>;
-export type ProductImages = Pick<Product, 'images'>;
+export type ProductId = Pick<ProductResponse, 'id'>;
+export type ProductName = Pick<ProductResponse, 'name'>;
+export type ProductPrice = Pick<ProductResponse, 'price'>;
+export type ProductDescription = Pick<ProductResponse, 'description'>;
+export type ProductProductType = Pick<ProductResponse, 'productType'>;
+export type ProductSizes = Pick<ProductResponse, 'sizes'>;
+export type ProductImages = Pick<ProductResponse, 'images'>;

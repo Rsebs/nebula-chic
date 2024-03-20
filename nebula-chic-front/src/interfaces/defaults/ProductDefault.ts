@@ -1,6 +1,6 @@
-import { Product } from '../Product';
+import { ProductResponse } from '../ProductResponse';
 
-export const productDefault: Product = {
+export const productDefault: ProductResponse = {
   id: 0,
   description: '',
   images: [

@@ -58,15 +58,14 @@ import { onGetCurrentUrlParams } from 'src/services/routerService';
 import axiosService from 'src/services/axiosService';
 import { useProductStore } from 'src/stores/product';
 import { onShowNotify } from 'src/services/notifyService';
-import { Product } from 'src/interfaces/Product';
+import { ProductResponse, ProductCart } from 'src/interfaces/ProductResponse';
 import { productDefault } from '../interfaces/defaults/ProductDefault';
-import { ProductCart } from '../interfaces/Product';
 
 const { t } = useI18n();
 const storeProduct = useProductStore();
 
 const isLoading = ref(false);
-const product: Ref<Product> = ref(productDefault);
+const product: Ref<ProductResponse> = ref(productDefault);
 const imagesProduct: Ref<string[]> = ref([]);
 
 onMounted(() => {
@@ -94,7 +93,7 @@ const onGetProduct = async () => {
   }
 };
 
-const onAddToCart = ({ id, name, price, images }: Product) => {
+const onAddToCart = ({ id, name, price, images }: ProductResponse) => {
   const productCart: ProductCart = {
     id,
     name,
@@ -112,3 +111,4 @@ const onAddToCart = ({ id, name, price, images }: Product) => {
   onShowNotify(t('lblProductAdd'));
 };
 </script>
+src/interfaces/ProductResponse../interfaces/ProductResponse

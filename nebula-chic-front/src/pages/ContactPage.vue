@@ -2,7 +2,11 @@
   <q-page padding>
     <div class="form-contact">
       <h2 class="text-center text-weight-bold">{{ $t('lblContactUs') }}</h2>
-      <q-form class="row q-col-gutter-md" @submit.prevent="onSendForm">
+      <q-form
+        class="row q-col-gutter-md"
+        @submit.prevent="onSendForm"
+        @reset="onResetForm"
+      >
         <q-input
           v-model="name"
           :label="$t('lblName')"
@@ -73,7 +77,6 @@
             icon="bi-x"
             class="q-ml-md"
             color="accent"
-            @click="onResetForm"
           />
         </div>
       </q-form>
