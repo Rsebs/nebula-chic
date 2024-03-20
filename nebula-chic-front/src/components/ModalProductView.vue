@@ -133,4 +133,3 @@ const onAddToCart = ({ id, name, price, images }: ProductResponse) => {
   }
 }
 </style>
-../interfaces/ProductResponse

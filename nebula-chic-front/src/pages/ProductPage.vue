@@ -111,4 +111,3 @@ const onAddToCart = ({ id, name, price, images }: ProductResponse) => {
   onShowNotify(t('lblProductAdd'));
 };
 </script>
-src/interfaces/ProductResponse../interfaces/ProductResponse

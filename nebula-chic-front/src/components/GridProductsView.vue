@@ -51,4 +51,3 @@ const onFetchData = async () => {
   }
 };
 </script>
-src/interfaces/ProductResponse
