@@ -7,10 +7,14 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   return $request->user();
 });
+
+Route::post('createUser', [UserController::class, 'createUser'])->name('user.createUser');
+Route::post('login', [UserController::class, 'login'])->name('user.login');
 
 Route::apiResource('product-types', ProductTypeController::class);
 Route::apiResource('products', ProductController::class);
