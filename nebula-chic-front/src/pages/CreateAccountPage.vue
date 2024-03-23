@@ -78,12 +78,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import validationRules from 'src/utils/validationRules';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { onShowNotify } from 'src/services/notifyService';
 import { useI18n } from 'vue-i18n';
 import axiosService from 'src/services/axiosService';
 
 const { t } = useI18n();
+const router = useRouter();
 
 const name = ref('');
 const email = ref('');
@@ -106,7 +107,8 @@ const onCreateAccount = async () => {
     if (response.statusCode !== 200)
       throw new Error(`Error create user ${body.name}`);
 
-    console.log(response);
+    onShowNotify(response.message);
+    router.push({ name: 'login' });
   } catch (error) {
     onShowNotify(`Error create user ${body.name}`, true);
     console.error(error);

@@ -18,7 +18,23 @@
 
         <q-space />
 
-        <q-btn icon="bi-person-circle" :to="{ name: 'login' }" flat />
+        <q-btn-dropdown v-if="userStore.login" :label="userStore.user.name">
+          <q-list>
+            <q-item>
+              <q-item-section>
+                <q-btn
+                  :label="$t('btnLogout')"
+                  flat
+                  icon="logout"
+                  @click="onLogout"
+                />
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+
+        <q-btn v-else icon="bi-person-circle" :to="{ name: 'login' }" flat />
+
         <q-btn-dropdown icon="bi-cart2" :title="$t('lblCart')">
           <q-list>
             <template v-if="productStore.cart.length">
@@ -133,19 +149,26 @@ import { onShowNotify, onShowNotifyActions } from 'src/services/notifyService';
 import axiosService from 'src/services/axiosService';
 import { useI18n } from 'vue-i18n';
 import { ProductCart } from 'src/interfaces/ProductResponse';
+import { useUserStore } from '../stores/userStore';
 
 const { t } = useI18n();
 
 const drawer = ref(false);
 const miniState = ref(true);
 const productStore = useProductStore();
+const userStore = useUserStore();
 
 const onBuyProducts = async () => {
+  if (!userStore.login) {
+    onShowNotify(t('lblPleaseRegisterOrLogin'), true);
+    return;
+  }
+
   const cart = productStore.cart.map(({ id, amount }) => {
     return {
       product_id: id,
       amount,
-      user_id: 1, // User temporal hasta crear el login
+      user_id: userStore.user.id,
     };
   });
 
@@ -170,5 +193,17 @@ const onRemoveProduct = (product: ProductCart) => {
   onShowNotifyActions(t('lblRemoveProductCart'), () =>
     productStore.onRemoveProduct(product)
   );
+};
+
+const onLogout = () => {
+  userStore.setLogin(false);
+  userStore.setUser({
+    id: 0,
+    name: '',
+    email: '',
+    email_verified_at: '',
+    created_at: '',
+    updated_at: '',
+  });
 };
 </script>

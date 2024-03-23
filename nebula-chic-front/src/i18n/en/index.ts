@@ -41,6 +41,7 @@ export default {
   lblMessageError: 'Something went wrong!',
   lblProductAdd: 'Product added to cart',
   lblNoProducts: 'You do not have products in your cart yet',
+  lblPleaseRegisterOrLogin: 'Please register or log in',
 
   // Validations
   vRequired: 'This field is required',

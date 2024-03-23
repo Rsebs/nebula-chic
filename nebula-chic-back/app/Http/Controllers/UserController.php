@@ -19,7 +19,7 @@ class UserController extends Controller
     try {
       DB::beginTransaction();
 
-      $data = User::create($request->all());
+      User::create($request->all());
 
       DB::commit();
 
@@ -41,7 +41,7 @@ class UserController extends Controller
       if (!Hash::check($request->password, $data->password))
         throw new Error('Incorrect password', 422);
 
-      return $this->successResponse($data);
+      return $this->successResponse($data, null, 'Welcome!');
     } catch (\Throwable $err) {
       return $this->errorResponse([], $err->getMessage(), $err->getCode());
     }

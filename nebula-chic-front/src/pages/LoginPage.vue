@@ -55,13 +55,43 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import validationRules from 'src/utils/validationRules';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+import axiosService from 'src/services/axiosService';
+import { RequestError } from '../utils/APIError';
+import { onShowNotify } from '../services/notifyService';
+import { useUserStore } from '../stores/userStore';
+
+const router = useRouter();
+const userStore = useUserStore();
 
 const email = ref('');
 const password = ref('');
 
-const onLogin = () => {
-  alert('Login');
+const onLogin = async () => {
+  try {
+    const body = {
+      email: email.value,
+      password: password.value,
+    };
+
+    const response = await axiosService.onAxiosPost('login', body);
+    if (response.statusCode !== 200)
+      throw new RequestError(response.message, response.statusCode);
+
+    onShowNotify(response.message);
+    userStore.setUser(response.data);
+    userStore.setLogin(true);
+    router.push({ name: 'index' });
+  } catch (error) {
+    if (error instanceof RequestError) {
+      onShowNotify(error.message, true);
+      console.error(`${error.message} -- ${error.code}`);
+
+      return;
+    }
+
+    console.error(error);
+  }
 };
 </script>
 

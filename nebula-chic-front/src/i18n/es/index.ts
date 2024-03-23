@@ -41,6 +41,7 @@ export default {
   lblMessageError: '¡Algo salió mal!',
   lblProductAdd: 'Producto agregado al carrito',
   lblNoProducts: 'Aún no tienes productos en el carrito',
+  lblPleaseRegisterOrLogin: 'Por favor regístrate o inicia sesión',
 
   // Validations
   vRequired: 'Este campo es requerido',

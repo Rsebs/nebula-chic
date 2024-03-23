@@ -1,6 +1,7 @@
 import { ProductResponse } from './ProductResponse';
+import { User } from './User';
 
-type DataResponse = ProductResponse;
+type DataResponse = ProductResponse & User;
 
 export interface APIResponse {
   message: string;
