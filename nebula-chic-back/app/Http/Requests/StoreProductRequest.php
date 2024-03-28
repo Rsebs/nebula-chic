@@ -42,7 +42,7 @@ class StoreProductRequest extends FormRequest
    *
    * @throws \Illuminate\Http\Exceptions\HttpResponseException
    */
-  protected function failedValidation(Validator $validator)
+  protected function failedValidation(Validator $validator): void
   {
     throw new HttpResponseException(
       $this->errorResponse($validator->errors(), 'Validation error.', 422)

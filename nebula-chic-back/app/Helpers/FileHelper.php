@@ -21,14 +21,14 @@ class FileHelper
    *
    * @return void
    */
-  public static function deleteFileStorage($path)
+  public static function deleteFileStorage($path): void
   {
     $path = str_replace('storage', 'public', $path);
 
     if (Storage::exists($path)) {
       Storage::delete($path);
     } else {
-      return throw new Exception("Path not found: $path");
+      throw new Exception("Path not found: $path");
     }
   }
 }

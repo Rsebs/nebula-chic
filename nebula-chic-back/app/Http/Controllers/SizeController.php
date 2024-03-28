@@ -25,12 +25,12 @@ class SizeController extends Controller
   public function index(Request $request)
   {
     try {
-      $nPage = $request->perPage ?? 25;
+      $perPage = $request->perPage ?? 25;
 
-      $oData = Size::paginate($nPage);
-      $oPaginate = PaginationHelper::createPagination(Size::paginate($nPage));
+      $data = Size::paginate($perPage);
+      $paginate = PaginationHelper::createPagination(Size::paginate($perPage));
 
-      return $this->successResponse(SizeResource::collection($oData), $oPaginate);
+      return $this->successResponse(SizeResource::collection($data), $paginate);
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!');
     }
@@ -67,12 +67,12 @@ class SizeController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function show($id)
+  public function show(int $id)
   {
     try {
-      $oData = Size::findOrFail($id);
+      $data = Size::findOrFail($id);
 
-      return $this->successResponse(SizeResource::make($oData));
+      return $this->successResponse(SizeResource::make($data));
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!', 404);
     }
@@ -86,13 +86,13 @@ class SizeController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function update(UpdateSizeRequest $request, $id)
+  public function update(UpdateSizeRequest $request, int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Size::findOrFail($id);
-      $oData->update($request->all());
+      $data = Size::findOrFail($id);
+      $data->update($request->all());
 
       DB::commit();
 
@@ -111,13 +111,13 @@ class SizeController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function destroy($id)
+  public function destroy(int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Size::findOrFail($id);
-      $oData->delete();
+      $data = Size::findOrFail($id);
+      $data->delete();
 
       DB::commit();
 

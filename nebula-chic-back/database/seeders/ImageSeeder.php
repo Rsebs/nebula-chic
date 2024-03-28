@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Image;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ImageSeeder extends Seeder
@@ -13,7 +12,7 @@ class ImageSeeder extends Seeder
    */
   public function run(): void
   {
-    $aSeederData = [
+    $seederData = [
       [
         'id' => 1,
         'path' => '/storage/images/products/PRENDA-Col1Camisa01.jpeg',
@@ -211,8 +210,8 @@ class ImageSeeder extends Seeder
       ],
     ];
 
-    foreach ($aSeederData as $oData) {
-      Image::updateOrCreate(['id' => $oData['id']], $oData);
+    foreach ($seederData as $data) {
+      Image::updateOrCreate(['id' => $data['id']], $data);
     }
   }
 }

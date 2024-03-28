@@ -12,7 +12,7 @@ class ProductTypeSeeder extends Seeder
    */
   public function run(): void
   {
-    $aSeederData = [
+    $seederData = [
       [
         'id' => 1,
         'name' => 'Prenda'
@@ -23,8 +23,8 @@ class ProductTypeSeeder extends Seeder
       ],
     ];
 
-    foreach ($aSeederData as $oData) {
-      ProductType::updateOrCreate(['id' => $oData['id']], $oData);
+    foreach ($seederData as $data) {
+      ProductType::updateOrCreate(['id' => $data['id']], $data);
     }
   }
 }

@@ -7,6 +7,7 @@ use App\Helpers\FileHelper;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Helpers\PaginationHelper;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ImageResource;
 use Illuminate\Support\Facades\Storage;
@@ -24,14 +25,14 @@ class ImageController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function index(Request $request)
+  public function index(Request $request): JsonResponse
   {
     try {
-      $nPage = $request->perPage ?? 25;
-      $oData = Image::paginate($nPage);
-      $oPaginate = PaginationHelper::createPagination(Image::paginate($nPage));
+      $perPage = $request->perPage ?? 25;
+      $data = Image::paginate($perPage);
+      $paginate = PaginationHelper::createPagination(Image::paginate($perPage));
 
-      return $this->successResponse(ImageResource::collection($oData), $oPaginate);
+      return $this->successResponse(ImageResource::collection($data), $paginate);
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!');
     }
@@ -44,16 +45,16 @@ class ImageController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function store(StoreImageRequest $request)
+  public function store(StoreImageRequest $request): JsonResponse
   {
     try {
       DB::beginTransaction();
 
-      $oImage = $request->file('file')->store('public/images/products');
-      $sPath = Storage::url($oImage);
+      $image = $request->file('file')->store('public/images/products');
+      $path = Storage::url($image);
 
       Image::create([
-        'path' => $sPath,
+        'path' => $path,
         'product_id' => $request->product_id,
       ]);
 
@@ -74,12 +75,12 @@ class ImageController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function show($id)
+  public function show(int $id): JsonResponse
   {
     try {
-      $oData = Image::findOrFail($id);
+      $data = Image::findOrFail($id);
 
-      return $this->successResponse(ImageResource::make($oData));
+      return $this->successResponse(ImageResource::make($data));
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!', 404);
     }
@@ -93,19 +94,19 @@ class ImageController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function update(UpdateImageRequest $request, $id)
+  public function update(UpdateImageRequest $request, int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Image::findOrFail($id);
-      $oImage = $request->file('file')->store('public/images/products');
-      $sPath = Storage::url($oImage);
+      $data = Image::findOrFail($id);
+      $image = $request->file('file')->store('public/images/products');
+      $path = Storage::url($image);
 
-      FileHelper::deleteFileStorage($oData->path);
+      FileHelper::deleteFileStorage($data->path);
 
-      $oData->update([
-        'path' => $sPath,
+      $data->update([
+        'path' => $path,
         'product_id' => $request->product_id,
       ]);
 
@@ -126,15 +127,15 @@ class ImageController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function destroy($id)
+  public function destroy(int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Image::findOrFail($id);
+      $data = Image::findOrFail($id);
 
-      FileHelper::deleteFileStorage($oData->path);
-      $oData->delete();
+      FileHelper::deleteFileStorage($data->path);
+      $data->delete();
 
       DB::commit();
 

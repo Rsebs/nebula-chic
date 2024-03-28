@@ -25,12 +25,12 @@ class ProductTypeController extends Controller
 	public function index(Request $request)
 	{
 		try {
-			$nPage = $request->perPage ?? 25;
+			$perPage = $request->perPage ?? 25;
 
-			$oData = ProductType::paginate($nPage);
-			$oPaginate = PaginationHelper::createPagination(ProductType::paginate($nPage));
+			$data = ProductType::paginate($perPage);
+			$paginate = PaginationHelper::createPagination(ProductType::paginate($perPage));
 
-			return $this->successResponse(ProductTypeResource::collection($oData), $oPaginate);
+			return $this->successResponse(ProductTypeResource::collection($data), $paginate);
 		} catch (\Throwable) {
 			return $this->errorResponse([], 'Something went wrong!');
 		}
@@ -67,12 +67,12 @@ class ProductTypeController extends Controller
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function show($id)
+	public function show(int $id)
 	{
 		try {
-			$oData = ProductType::findOrFail($id);
+			$data = ProductType::findOrFail($id);
 
-			return $this->successResponse(ProductTypeResource::make($oData));
+			return $this->successResponse(ProductTypeResource::make($data));
 		} catch (\Throwable) {
 			return $this->errorResponse([], 'Something went wrong!', 404);
 		}
@@ -86,13 +86,13 @@ class ProductTypeController extends Controller
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function update(UpdateProductTypeRequest $request, $id)
+	public function update(UpdateProductTypeRequest $request, int $id)
 	{
 		try {
 			DB::beginTransaction();
 
-			$oData = ProductType::findOrFail($id);
-			$oData->update($request->all());
+			$data = ProductType::findOrFail($id);
+			$data->update($request->all());
 
 			DB::commit();
 
@@ -111,13 +111,13 @@ class ProductTypeController extends Controller
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function destroy($id)
+	public function destroy(int $id)
 	{
 		try {
 			DB::beginTransaction();
 
-			$oData = ProductType::findOrFail($id);
-			$oData->delete();
+			$data = ProductType::findOrFail($id);
+			$data->delete();
 
 			DB::commit();
 

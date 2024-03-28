@@ -2,37 +2,39 @@
 
 namespace App\Traits;
 
+use Illuminate\Http\JsonResponse;
+
 trait ApiResponse
 {
   /**
    * Generates a JSON response for a successful operation.
    *
-   * @param mixed $oData
+   * @param mixed $data
    * @param string $message
    * @param int $status
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  protected function successResponse($oData, $oPaginate = null, $message = 'Success!', $status = 200)
+  protected function successResponse($data, $paginate = null, $message = 'Success!', $status = 200): JsonResponse
   {
     return response()->json([
       'message' => $message,
       'statusCode' => $status,
-      'data' => $oData,
-      'paginate' => $oPaginate,
+      'data' => $data,
+      'paginate' => $paginate,
     ], $status);
   }
 
   /**
    * Generate a JSON response for error scenarios.
    *
-   * @param mixed $oData
+   * @param mixed $data
    * @param string $message
    * @param int $status
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  protected function errorResponse($error = [], $message = 'Error.', $status = 500)
+  protected function errorResponse($error = [], $message = 'Error.', $status = 500): JsonResponse
   {
     return response()->json([
       'message' => $message,

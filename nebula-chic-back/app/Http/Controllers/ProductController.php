@@ -25,17 +25,17 @@ class ProductController extends Controller
   public function index(Request $request)
   {
     try {
-      $nPage = $request->perPage ?? 25;
+      $perPage = $request->perPage ?? 25;
 
       if ($request->type) {
-        $oData = Product::where('product_type_id', $request->type)->paginate($nPage);
-        $oPaginate = PaginationHelper::createPagination(Product::where('product_type_id', $request->type)->paginate($nPage));
+        $data = Product::where('product_type_id', $request->type)->paginate($perPage);
+        $paginate = PaginationHelper::createPagination(Product::where('product_type_id', $request->type)->paginate($perPage));
       } else {
-        $oData = Product::paginate($nPage);
-        $oPaginate = PaginationHelper::createPagination(Product::paginate($nPage));
+        $data = Product::paginate($perPage);
+        $paginate = PaginationHelper::createPagination(Product::paginate($perPage));
       }
 
-      return $this->successResponse(ProductResource::collection($oData), $oPaginate);
+      return $this->successResponse(ProductResource::collection($data), $paginate);
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!', 500);
     }
@@ -72,12 +72,12 @@ class ProductController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function show($id)
+  public function show(int $id)
   {
     try {
-      $oData = Product::findOrFail($id);
+      $data = Product::findOrFail($id);
 
-      return $this->successResponse(ProductResource::make($oData));
+      return $this->successResponse(ProductResource::make($data));
     } catch (\Throwable) {
       return $this->errorResponse([], 'Something went wrong!', 404);
     }
@@ -91,13 +91,13 @@ class ProductController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function update(UpdateProductRequest $request, $id)
+  public function update(UpdateProductRequest $request, int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Product::findOrFail($id);
-      $oData->update($request->all());
+      $data = Product::findOrFail($id);
+      $data->update($request->all());
 
       DB::commit();
 
@@ -116,13 +116,13 @@ class ProductController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function destroy($id)
+  public function destroy(int $id)
   {
     try {
       DB::beginTransaction();
 
-      $oData = Product::findOrFail($id);
-      $oData->delete();
+      $data = Product::findOrFail($id);
+      $data->delete();
 
       DB::commit();
 

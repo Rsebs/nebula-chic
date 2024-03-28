@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
@@ -13,7 +12,7 @@ class ProductSeeder extends Seeder
    */
   public function run(): void
   {
-    $aSeederData = [
+    $seederData = [
       [
         'id' => 1,
         'name' => 'Camisetas con diseños Coleccion #1',
@@ -135,8 +134,8 @@ class ProductSeeder extends Seeder
       ],
     ];
 
-    foreach ($aSeederData as $oData) {
-      Product::updateOrCreate(['id' => $oData['id']], $oData);
+    foreach ($seederData as $data) {
+      Product::updateOrCreate(['id' => $data['id']], $data);
     }
   }
 }

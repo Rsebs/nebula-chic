@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Size;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SizeSeeder extends Seeder
@@ -13,7 +12,7 @@ class SizeSeeder extends Seeder
    */
   public function run(): void
   {
-    $aSeederData = [
+    $seederData = [
       [
         'id' => 1,
         'cod' => 'XS',
@@ -46,8 +45,8 @@ class SizeSeeder extends Seeder
       ],
     ];
 
-    foreach ($aSeederData as $oData) {
-      Size::updateOrCreate(['id' => $oData['id']], $oData);
+    foreach ($seederData as $data) {
+      Size::updateOrCreate(['id' => $data['id']], $data);
     }
   }
 }

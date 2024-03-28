@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
-use App\Http\Requests\StorePurchaseRequest;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StorePurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -26,8 +26,8 @@ class PurchaseController extends Controller
     try {
       DB::beginTransaction();
 
-      foreach ($request->cart as $oPurchase) {
-        Purchase::create($oPurchase);
+      foreach ($request->cart as $purchase) {
+        Purchase::create($purchase);
       }
 
       DB::commit();
@@ -43,7 +43,7 @@ class PurchaseController extends Controller
   /**
    * Display the specified resource.
    */
-  public function show($id)
+  public function show(int $id)
   {
   }
 
@@ -57,7 +57,7 @@ class PurchaseController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy($id)
+  public function destroy(int $id)
   {
   }
 }
