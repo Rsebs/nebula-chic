@@ -51,15 +51,15 @@
 </template>
 
 <script setup lang="ts">
-import CarouselView from 'src/components/CarouselView.vue';
-import { onMounted, ref, Ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { onGetCurrentUrlParams } from 'src/services/routerService';
-import axiosService from 'src/services/axiosService';
-import { useProductStore } from 'src/stores/product';
+import { onMounted, ref, Ref } from 'vue';
 import { onShowNotify } from 'src/services/notifyService';
-import { ProductResponse, ProductCart } from 'src/interfaces/ProductResponse';
 import { productDefault } from '../interfaces/defaults/ProductDefault';
+import { ProductResponse, ProductCart } from 'src/interfaces/ProductResponse';
+import { useI18n } from 'vue-i18n';
+import { useProductStore } from 'src/stores/product';
+import axiosService from 'src/services/axiosService';
+import CarouselView from 'src/components/CarouselView.vue';
 
 const { t } = useI18n();
 const storeProduct = useProductStore();

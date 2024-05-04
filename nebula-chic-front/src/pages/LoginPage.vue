@@ -17,7 +17,7 @@
 
         <q-card-actions class="col-12">
           <q-input
-            v-model="email"
+            v-model="form.email"
             :label="$t('lblEmail')"
             :rules="[validationRules.required, validationRules.email]"
             color="primary"
@@ -26,7 +26,7 @@
             class="col-12 col-sm-6 q-px-sm q-mb-sm"
           />
           <q-input
-            v-model="password"
+            v-model="form.password"
             type="password"
             :label="$t('lblPassword')"
             :rules="[validationRules.required]"
@@ -53,25 +53,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import validationRules from 'src/utils/validationRules';
-import { RouterLink, useRouter } from 'vue-router';
-import axiosService from 'src/services/axiosService';
-import { RequestError } from '../utils/APIError';
 import { onShowNotify } from '../services/notifyService';
+import { ref } from 'vue';
+import { RequestError } from '../utils/APIError';
+import { RouterLink, useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
+import axiosService from 'src/services/axiosService';
+import validationRules from 'src/utils/validationRules';
 
 const router = useRouter();
 const userStore = useUserStore();
 
-const email = ref('');
-const password = ref('');
+const form = ref({
+  email: '',
+  password: '',
+});
 
 const onLogin = async () => {
   try {
     const body = {
-      email: email.value,
-      password: password.value,
+      email: form.value.email,
+      password: form.value.password,
     };
 
     const response = await axiosService.onAxiosPost('login', body);

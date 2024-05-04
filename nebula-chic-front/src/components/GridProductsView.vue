@@ -6,18 +6,18 @@
     <CardProductView
       v-for="product in products"
       :key="product.id"
-      :product="product"
+      :product
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ProductResponse } from 'src/interfaces/ProductResponse';
-import axiosService from 'src/services/axiosService';
 import { onMounted, ref, Ref } from 'vue';
 import { onShowNotify } from 'src/services/notifyService';
-import CardProductView from './CardProductView.vue';
+import { ProductResponse } from 'src/interfaces/ProductResponse';
 import { useI18n } from 'vue-i18n';
+import axiosService from 'src/services/axiosService';
+import CardProductView from './CardProductView.vue';
 
 const { endpoint } = defineProps({
   endpoint: {

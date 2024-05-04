@@ -17,7 +17,7 @@
 
         <q-card-actions class="col-12">
           <q-input
-            v-model="name"
+            v-model="form.name"
             :label="$t('lblName')"
             :rules="[validationRules.required]"
             color="primary"
@@ -26,7 +26,7 @@
             class="col-12 col-sm-6 q-px-sm q-mb-sm"
           />
           <q-input
-            v-model="email"
+            v-model="form.email"
             :label="$t('lblEmail')"
             :rules="[validationRules.required, validationRules.email]"
             color="primary"
@@ -35,7 +35,7 @@
             class="col-12 col-sm-6 q-px-sm q-mb-sm"
           />
           <q-input
-            v-model="password"
+            v-model="form.password"
             type="password"
             :label="$t('lblPassword')"
             :rules="[validationRules.required]"
@@ -45,7 +45,7 @@
             class="col-12 col-sm-6 q-px-sm q-mb-sm"
           />
           <q-input
-            v-model="confirmPassword"
+            v-model="form.confirmPassword"
             type="password"
             :label="$t('lblConfirmPassword')"
             :rules="[validationRules.required]"
@@ -76,29 +76,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import validationRules from 'src/utils/validationRules';
-import { RouterLink, useRouter } from 'vue-router';
 import { onShowNotify } from 'src/services/notifyService';
+import { ref } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import axiosService from 'src/services/axiosService';
+import validationRules from 'src/utils/validationRules';
 
 const { t } = useI18n();
 const router = useRouter();
 
-const name = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+});
 
 const onCreateAccount = async () => {
-  if (password.value !== confirmPassword.value)
+  if (form.value.password !== form.value.confirmPassword)
     return onShowNotify(t('txtPasswordNoMatch'), true);
 
   const body = {
-    name: name.value,
-    email: email.value,
-    password: password.value,
+    name: form.value.name,
+    email: form.value.email,
+    password: form.value.password,
   };
 
   try {

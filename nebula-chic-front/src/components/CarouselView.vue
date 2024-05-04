@@ -1,12 +1,12 @@
 <template>
   <q-carousel
-    :animated="animated"
     v-model="slide"
     arrows
     infinite
-    :autoplay="autoplay"
-    :swipeable="swipeable"
-    :thumbnails="thumbnails"
+    :animated
+    :autoplay
+    :swipeable
+    :thumbnails
     :transition-duration="700"
   >
     <q-carousel-slide

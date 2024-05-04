@@ -142,14 +142,14 @@
 </template>
 
 <script setup lang="ts">
-import MenuView from 'src/components/MenuView.vue';
-import { ref } from 'vue';
-import { useProductStore } from 'src/stores/product';
 import { onShowNotify, onShowNotifyActions } from 'src/services/notifyService';
-import axiosService from 'src/services/axiosService';
-import { useI18n } from 'vue-i18n';
 import { ProductCart } from 'src/interfaces/ProductResponse';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useProductStore } from 'src/stores/product';
 import { useUserStore } from '../stores/userStore';
+import axiosService from 'src/services/axiosService';
+import MenuView from 'src/components/MenuView.vue';
 
 const { t } = useI18n();
 

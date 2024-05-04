@@ -91,4 +91,3 @@ const onShowModal = () => {
   }
 }
 </style>
-src/interfaces/ProductResponse

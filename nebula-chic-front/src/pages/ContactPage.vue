@@ -8,7 +8,7 @@
         @reset="onResetForm"
       >
         <q-input
-          v-model="name"
+          v-model="form.name"
           :label="$t('lblName')"
           class="col-12 col-sm-6"
           color="secondary"
@@ -18,7 +18,7 @@
         />
 
         <q-input
-          v-model="lastName"
+          v-model="form.lastName"
           :label="$t('lblLastName')"
           class="col-12 col-sm-6"
           color="secondary"
@@ -28,7 +28,7 @@
         />
 
         <q-input
-          v-model="email"
+          v-model="form.email"
           :label="$t('lblEmail')"
           class="col-12 col-sm-6"
           color="secondary"
@@ -38,7 +38,7 @@
         />
 
         <q-input
-          v-model="phone"
+          v-model="form.phone"
           :label="$t('lblPhone')"
           class="col-12 col-sm-6"
           color="secondary"
@@ -46,7 +46,7 @@
         />
 
         <q-input
-          v-model="address"
+          v-model="form.address"
           :label="$t('lblAddress')"
           class="col-12"
           color="secondary"
@@ -54,7 +54,7 @@
         />
 
         <q-input
-          v-model="message"
+          v-model="form.message"
           :label="$t('lblYourMessageHere')"
           type="textarea"
           class="col-12"
@@ -85,19 +85,21 @@
 </template>
 
 <script setup lang="ts">
+import { onShowNotify } from 'src/services/notifyService';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { onShowNotify } from 'src/services/notifyService';
 import validationRules from 'src/utils/validationRules';
 
 const { t } = useI18n();
 
-const name = ref('');
-const lastName = ref('');
-const email = ref('');
-const phone = ref('');
-const address = ref('');
-const message = ref('');
+const form = ref({
+  name: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  address: '',
+  message: '',
+});
 
 const onSendForm = () => {
   onShowNotify(t('lblThanksForContact'));
@@ -105,11 +107,11 @@ const onSendForm = () => {
 };
 
 const onResetForm = () => {
-  name.value = '';
-  lastName.value = '';
-  email.value = '';
-  phone.value = '';
-  address.value = '';
-  message.value = '';
+  form.value.name = '';
+  form.value.lastName = '';
+  form.value.email = '';
+  form.value.phone = '';
+  form.value.address = '';
+  form.value.message = '';
 };
 </script>

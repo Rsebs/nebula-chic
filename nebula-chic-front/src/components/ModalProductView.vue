@@ -53,12 +53,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { ProductResponse, ProductCart } from '../interfaces/ProductResponse';
-import CarouselView from './CarouselView.vue';
 import { onShowNotify } from 'src/services/notifyService';
+import { ProductResponse, ProductCart } from '../interfaces/ProductResponse';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useProductStore } from 'src/stores/product';
+import CarouselView from './CarouselView.vue';
 
 const { value, product } = defineProps({
   value: {
