@@ -19,6 +19,7 @@
             :to="item.to"
             :title="item.title"
             :prepend-icon="item.icon"
+            exact
           />
         </v-list>
       </v-navigation-drawer>
