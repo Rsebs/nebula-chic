@@ -1,7 +1,7 @@
 export interface HeaderDataTable {
   title: string;
   align: 'start' | 'center' | 'end';
-  sorteable: boolean;
+  sortable: boolean;
   key: string;
 }
 

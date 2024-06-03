@@ -1,5 +1,15 @@
 <template>
-  <v-data-table :loading :headers :items="dataTable" fixed-header height="600">
+  <v-data-table-server
+    v-model:items-per-page="itemsPerPage"
+    :headers
+    :items-length="totalItems"
+    :items="dataTable"
+    :loading
+    density="comfortable"
+    fixed-header
+    height="65vh"
+    @update:options="onFetchData"
+  >
     <template #top>
       <v-toolbar flat>
         <v-toolbar-title>{{ tableTitle }}</v-toolbar-title>
@@ -23,7 +33,7 @@
         />
       </div>
     </template>
-  </v-data-table>
+  </v-data-table-server>
 
   <ModalForm
     v-model="showModal"
@@ -47,7 +57,7 @@ import {
   type DataResponse,
 } from '@/interfaces/APIResponseInterface/APIResponse';
 import { onError, onSuccess, onWarning } from '@/mixins/notifications';
-import { onMounted, ref, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import axiosService from '@/services/axiosService';
 import ModalForm from '@/components/Modals/ModalForm.vue';
 
@@ -77,17 +87,34 @@ const loading = ref(false);
 const showModal = ref(false);
 const showModalKey = ref(0);
 const idItemEdit = ref(0);
+const itemsPerPage = ref(10);
+const pageTable = ref(1);
+const sortTable = ref({});
+const totalItems = ref(0);
 
-onMounted(() => {
-  onFetchData();
-});
-
-const onFetchData = async () => {
+const onFetchData = async ({
+  page,
+  itemsPerPage,
+  sortBy,
+}: {
+  page: number;
+  itemsPerPage: number;
+  sortBy: object;
+}) => {
   loading.value = true;
   try {
-    const { data } = await axiosService.get(endpoint, {
-      params: paramsEndpoint,
+    const { data, paginate } = await axiosService.get(endpoint, {
+      params: {
+        ...paramsEndpoint,
+        page,
+        perPage: itemsPerPage,
+        sortBy,
+      },
     });
+
+    sortTable.value = sortBy;
+    pageTable.value = page;
+    totalItems.value = paginate.total;
 
     onSetTable(data);
   } catch (error) {
@@ -107,7 +134,7 @@ const onSetTable = (data: DataResponse[]) => {
   headers.value.push({
     title: '',
     align: 'center',
-    sorteable: true,
+    sortable: false,
     key: 'actions',
   });
 
@@ -117,7 +144,7 @@ const onSetTable = (data: DataResponse[]) => {
     headers.value.push({
       title: key,
       align: 'center',
-      sorteable: true,
+      sortable: true,
       key: key,
     });
   });
@@ -133,7 +160,7 @@ const onDeleteItem = async (idItem: number) => {
       const { message } = await axiosService.delete(`${endpoint}/${idItem}`);
 
       onSuccess(message);
-      onFetchData();
+      onReloadData();
     }
   } catch (error) {
     console.error(error);
@@ -154,6 +181,14 @@ const onShowModal = (idItem: number = 0) => {
 const onClose = (value: boolean) => {
   showModal.value = value;
   idItemEdit.value = 0;
-  onFetchData();
+  onReloadData();
+};
+
+const onReloadData = () => {
+  onFetchData({
+    page: pageTable.value,
+    itemsPerPage: itemsPerPage.value,
+    sortBy: sortTable.value,
+  });
 };
 </script>
