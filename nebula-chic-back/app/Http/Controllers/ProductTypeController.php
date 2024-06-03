@@ -26,8 +26,10 @@ class ProductTypeController extends Controller
 	{
 		try {
 			$perPage = $request->perPage ?? 25;
+			$sortKey = $request->sortBy[0]['key'] ?? 'id';
+			$sortOrder = $request->sortBy[0]['order'] ?? 'asc';
 
-			$data = ProductType::paginate($perPage);
+			$data = ProductType::orderBy($sortKey, $sortOrder)->paginate($perPage);
 			$paginate = PaginationHelper::createPagination(ProductType::paginate($perPage));
 
 			return $this->successResponse(ProductTypeResource::collection($data), $paginate);
