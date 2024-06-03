@@ -4,6 +4,7 @@ import IndexPage from '@/pages/IndexPage.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import ProductsPage from '@/pages/ProductsPage.vue';
 import ProductTypesPage from '@/pages/ProductTypesPage.vue';
+import SizesPage from '@/pages/SizesPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,6 +25,11 @@ const routes: RouteRecordRaw[] = [
         path: 'product-types',
         name: 'ProductTypes',
         component: ProductTypesPage,
+      },
+      {
+        path: 'sizes',
+        name: 'Sizes',
+        component: SizesPage,
       },
     ],
   },
