@@ -26,8 +26,10 @@ class SizeController extends Controller
   {
     try {
       $perPage = $request->perPage ?? 25;
+      $sortKey = $request->sortBy[0]['key'] ?? 'id';
+      $sortOrder = $request->sortBy[0]['order'] ?? 'asc';
 
-      $data = Size::paginate($perPage);
+      $data = Size::orderBy($sortKey, $sortOrder)->paginate($perPage);
       $paginate = PaginationHelper::createPagination(Size::paginate($perPage));
 
       return $this->successResponse(SizeResource::collection($data), $paginate);
