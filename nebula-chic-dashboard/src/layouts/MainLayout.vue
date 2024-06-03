@@ -53,9 +53,9 @@ const itemsList = ref([
     to: { name: 'Index' },
   },
   {
-    title: 'About',
-    icon: 'mdi-help',
-    to: { name: 'About' },
+    title: 'Products',
+    icon: 'mdi-tshirt-v',
+    to: { name: 'Products' },
   },
 ]);
 </script>

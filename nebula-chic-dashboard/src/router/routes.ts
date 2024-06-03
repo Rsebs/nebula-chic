@@ -1,8 +1,8 @@
-import AboutPage from '@/pages/AboutPage.vue';
-import IndexPage from '@/pages/IndexPage.vue';
-import MainLayout from '@/layouts/MainLayout.vue';
 import type { RouteRecordRaw } from 'vue-router';
 import ErrorNotFound from '@/pages/ErrorNotFound.vue';
+import IndexPage from '@/pages/IndexPage.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+import ProductsPage from '@/pages/ProductsPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -15,9 +15,9 @@ const routes: RouteRecordRaw[] = [
         component: IndexPage,
       },
       {
-        path: 'about',
-        name: 'About',
-        component: AboutPage,
+        path: 'products',
+        name: 'Products',
+        component: ProductsPage,
       },
     ],
   },
