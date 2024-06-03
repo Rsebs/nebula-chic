@@ -1,7 +1,37 @@
 <template>
   <v-app>
     <v-layout>
-      <v-navigation-drawer>
+      <v-app-bar color="primary" prominent>
+        <v-app-bar-nav-icon
+          variant="text"
+          icon="mdi-view-dashboard"
+          @click.stop="drawer = !drawer"
+        />
+
+        <v-toolbar-title>Nebula Chic Dashboard</v-toolbar-title>
+
+        <v-spacer />
+
+        <v-btn variant="text">
+          <v-icon size="x-large">mdi-dots-vertical</v-icon>
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>
+                  <v-btn
+                    prepend-icon="mdi-theme-light-dark"
+                    @click="onChangeTheme"
+                  >
+                    Cambiar tema
+                  </v-btn>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-btn>
+      </v-app-bar>
+
+      <v-navigation-drawer v-model="drawer">
         <v-list>
           <v-list-item
             :prepend-avatar="user.avatar"
@@ -39,6 +69,7 @@
 import AppFooter from '@/components/AppFooter.vue';
 
 import { ref } from 'vue';
+import { useDisplay, useTheme } from 'vuetify';
 
 const user = ref({
   name: 'Sebs',
@@ -68,4 +99,12 @@ const itemsList = ref([
     to: { name: 'Sizes' },
   },
 ]);
+
+const { mobile } = useDisplay();
+const drawer = ref(!mobile.value);
+const theme = useTheme();
+
+const onChangeTheme = () => {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
+};
 </script>
