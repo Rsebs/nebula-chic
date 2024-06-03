@@ -19,8 +19,10 @@ class ProductResource extends JsonResource
       'name' => $this->name,
       'price' => $this->price,
       'description' => $this->description,
-      'productType' => ProductTypeResource::make($this->productType),
-      'sizes' => SizeResource::collection($this->sizes),
+      'product_type_id' => $this->productType->id,
+      'productType' => $this->productType->name,
+      'sizes_id' => collect($this->sizes)->map(fn ($size) => $size->id),
+      'sizes' => collect($this->sizes)->map(fn ($size) => $size->name)->implode(', '),
       'images' => ImageResource::collection($this->images)
     ];
   }
