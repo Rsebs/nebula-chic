@@ -3,6 +3,7 @@ import ErrorNotFound from '@/pages/ErrorNotFound.vue';
 import IndexPage from '@/pages/IndexPage.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import ProductsPage from '@/pages/ProductsPage.vue';
+import ProductTypesPage from '@/pages/ProductTypesPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -18,6 +19,11 @@ const routes: RouteRecordRaw[] = [
         path: 'products',
         name: 'Products',
         component: ProductsPage,
+      },
+      {
+        path: 'product-types',
+        name: 'ProductTypes',
+        component: ProductTypesPage,
       },
     ],
   },

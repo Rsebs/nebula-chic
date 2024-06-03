@@ -57,5 +57,10 @@ const itemsList = ref([
     icon: 'mdi-tshirt-v',
     to: { name: 'Products' },
   },
+  {
+    title: 'ProductTypes',
+    icon: 'mdi-tshirt-v',
+    to: { name: 'ProductTypes' },
+  },
 ]);
 </script>
