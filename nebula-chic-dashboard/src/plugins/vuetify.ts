@@ -10,6 +10,10 @@ export default createVuetify({
   directives,
   ssr: true,
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme:
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark',
   },
 });
