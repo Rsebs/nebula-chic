@@ -26,13 +26,18 @@ class ProductController extends Controller
   {
     try {
       $perPage = $request->perPage ?? 25;
+      $sortKey = $request->sortBy[0]['key'] ?? 'id';
+      $sortOrder = $request->sortBy[0]['order'] ?? 'asc';
 
       if ($request->type) {
-        $data = Product::where('product_type_id', $request->type)->paginate($perPage);
-        $paginate = PaginationHelper::createPagination(Product::where('product_type_id', $request->type)->paginate($perPage));
+        $data = Product::where('product_type_id', $request->type)
+          ->orderBy($sortKey, $sortOrder)
+          ->paginate($perPage);
+        $paginate = PaginationHelper::createPagination($data);
       } else {
-        $data = Product::paginate($perPage);
-        $paginate = PaginationHelper::createPagination(Product::paginate($perPage));
+        $data = Product::orderBy($sortKey, $sortOrder)
+          ->paginate($perPage);
+        $paginate = PaginationHelper::createPagination($data);
       }
 
       return $this->successResponse(ProductResource::collection($data), $paginate);
