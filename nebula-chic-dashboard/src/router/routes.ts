@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 import ErrorNotFound from '@/pages/ErrorNotFound.vue';
 import IndexPage from '@/pages/IndexPage.vue';
+import LoginSignUpPage from '@/pages/LoginSignUpPage.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import ProductsPage from '@/pages/ProductsPage.vue';
 import ProductTypesPage from '@/pages/ProductTypesPage.vue';
@@ -11,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: MainLayout,
     children: [
+      {
+        path: '/login-signup',
+        name: 'LoginSignUp',
+        component: LoginSignUpPage,
+      },
       {
         path: '',
         name: 'Index',

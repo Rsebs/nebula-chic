@@ -3,6 +3,7 @@
     <v-layout>
       <v-app-bar color="primary" prominent>
         <v-app-bar-nav-icon
+          v-if="login"
           variant="text"
           icon="mdi-view-dashboard"
           @click.stop="drawer = !drawer"
@@ -31,7 +32,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-navigation-drawer v-model="drawer">
+      <v-navigation-drawer v-if="login" v-model="drawer">
         <v-list>
           <v-list-item
             :prepend-avatar="user.avatar"
@@ -103,6 +104,8 @@ const itemsList = ref([
 const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);
 const theme = useTheme();
+
+const login = ref(false);
 
 const onChangeTheme = () => {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
