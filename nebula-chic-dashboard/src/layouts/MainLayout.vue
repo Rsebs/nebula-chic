@@ -3,7 +3,7 @@
     <v-layout>
       <v-app-bar color="primary" prominent>
         <v-app-bar-nav-icon
-          v-if="login"
+          v-if="userStore.login"
           variant="text"
           icon="mdi-view-dashboard"
           @click.stop="drawer = !drawer"
@@ -25,6 +25,13 @@
                   >
                     Cambiar tema
                   </v-btn>
+                  <v-btn
+                    v-if="userStore.login"
+                    prepend-icon="mdi-logout"
+                    @click="onLogout"
+                  >
+                    Cerrar Sesión
+                  </v-btn>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -32,12 +39,12 @@
         </v-btn>
       </v-app-bar>
 
-      <v-navigation-drawer v-if="login" v-model="drawer">
+      <v-navigation-drawer v-if="userStore.login" v-model="drawer">
         <v-list>
           <v-list-item
-            :prepend-avatar="user.avatar"
-            :title="user.name"
-            :subtitle="user.email"
+            :prepend-avatar="userStore.user.avatarUrl"
+            :title="userStore.user.name"
+            :subtitle="userStore.user.email"
           />
         </v-list>
 
@@ -71,12 +78,8 @@ import AppFooter from '@/components/AppFooter.vue';
 
 import { ref } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
-
-const user = ref({
-  name: 'Sebs',
-  avatar: 'https://github.com/rsebs.png',
-  email: 'sebastianruizj2014@gmail.com',
-});
+import { useUserStore } from '../stores/userStore';
+import { useRouter } from 'vue-router';
 
 const itemsList = ref([
   {
@@ -104,10 +107,15 @@ const itemsList = ref([
 const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);
 const theme = useTheme();
-
-const login = ref(false);
+const userStore = useUserStore();
+const router = useRouter();
 
 const onChangeTheme = () => {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
+};
+
+const onLogout = () => {
+  userStore.onLogout();
+  router.push({ name: 'LoginSignUp' });
 };
 </script>

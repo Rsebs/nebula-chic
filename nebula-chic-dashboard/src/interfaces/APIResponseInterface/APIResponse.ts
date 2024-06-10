@@ -1,12 +1,13 @@
 import type { Product } from './ProductResponse';
 import type { SelectResponse } from './SelectResponse';
+import type { UserResponse } from './UserResponse';
 
-export type DataResponse = Product | SelectResponse;
+export type DataResponse = Product | SelectResponse | UserResponse;
 
 export interface APISuccessResponse {
   message: string;
   statusCode: number;
-  data: DataResponse[];
+  data: DataResponse[] & DataResponse; // todo: hay mejor manera de manejar este atributo?
   paginate: Paginate;
 }
 

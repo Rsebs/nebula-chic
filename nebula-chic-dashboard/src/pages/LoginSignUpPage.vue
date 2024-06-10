@@ -23,7 +23,9 @@
             />
           </v-card-text>
           <v-card-actions class="d-flex justify-end">
-            <v-btn type="submit" flat color="primary">{{ type }}</v-btn>
+            <v-btn type="submit" flat color="primary" :loading>
+              {{ type }}
+            </v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
@@ -34,11 +36,16 @@
 <script setup lang="ts">
 import type { Fields } from '@/interfaces/ComponentInterface/ModalFormInterface';
 import { morphComponent } from '@/components/Inputs';
-import { reactive } from 'vue';
+import { onError } from '@/mixins/notifications';
+import { reactive, ref } from 'vue';
+import { useUserStore } from '@/stores/userStore';
+import axiosService from '@/services/axiosService';
+import { isUserResponse } from '@/interfaces/APIResponseInterface/UserResponse';
+import { useRouter } from 'vue-router';
 
 interface FormData {
   formValid: boolean;
-  dataFields: Record<string, unknown>;
+  dataFields: Record<string, string>;
   inputFields: Fields[];
 }
 
@@ -47,6 +54,7 @@ interface FormType {
   signup: FormData;
 }
 
+const router = useRouter();
 const formTypes = ['login', 'signup'] as const;
 
 const formType = reactive<FormType>({
@@ -93,14 +101,39 @@ const formType = reactive<FormType>({
     ],
   },
 });
+const loading = ref(false);
 
-const onSubmit = (type: keyof FormType) => {
+const onSubmit = async (type: keyof FormType) => {
+  loading.value = true;
   if (!formType[type].formValid) return;
 
-  alert(type);
+  if (type === 'signup') {
+    const { password, confirmPassword } = formType[type].dataFields;
+    if (password !== confirmPassword) {
+      onError('Passwords do not match');
+      return;
+    }
+  }
+
+  try {
+    const endpoint = type === 'login' ? 'login' : 'createUser';
+    const { data } = await axiosService.post(
+      endpoint,
+      formType[type].dataFields
+    );
+
+    const userStore = useUserStore();
+    if (isUserResponse(data)) {
+      userStore.onSetUser(data);
+      router.push({ name: 'Index' });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  loading.value = false;
 };
 
-const onUpdateValue = (type: keyof FormType, value: unknown, key: unknown) => {
-  if (typeof key === 'string') formType[type].dataFields[key] = value;
+const onUpdateValue = (type: keyof FormType, value: string, key: string) => {
+  formType[type].dataFields[key] = value;
 };
 </script>

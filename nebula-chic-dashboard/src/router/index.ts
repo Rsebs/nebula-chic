@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
 import routes from './routes';
 
 const router = createRouter({
@@ -16,14 +17,14 @@ router.beforeEach((to, from, next) => {
     // Guardar el ip en el store
   }
 
-  const login = false;
+  const userStore = useUserStore();
 
   switch (to.name) {
     case 'LoginSignUp':
       next();
       break;
     default:
-      if (!login) {
+      if (!userStore.login) {
         next({ name: 'LoginSignUp' });
       } else {
         next();
