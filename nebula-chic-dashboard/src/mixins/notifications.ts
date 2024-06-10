@@ -3,7 +3,8 @@ import { red, green } from 'vuetify/util/colors';
 
 export const onWarning = async (
   title: string,
-  btnConfirmText: string = 'Guardar'
+  btnConfirmText: string = 'Confirm',
+  btnCancelText: string = 'Cancel'
 ) => {
   try {
     const result = await Swal.fire({
@@ -12,7 +13,7 @@ export const onWarning = async (
       confirmButtonText: btnConfirmText,
       confirmButtonColor: green.base,
       denyButtonColor: red.base,
-      denyButtonText: 'Cancelar',
+      denyButtonText: btnCancelText,
       customClass: {
         container: 'swal-z-index',
       },

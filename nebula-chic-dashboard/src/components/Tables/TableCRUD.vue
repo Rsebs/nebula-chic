@@ -14,7 +14,9 @@
       <v-toolbar flat>
         <v-toolbar-title>{{ tableTitle }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="onShowModal()">Nuevo registro</v-btn>
+        <v-btn color="primary" @click="onShowModal()">
+          {{ $t('newRegistration') }}
+        </v-btn>
       </v-toolbar>
     </template>
     <template #item.actions="{ item }: { item: ItemTable }">
@@ -58,6 +60,7 @@ import {
 } from '@/interfaces/APIResponseInterface/APIResponse';
 import { onError, onSuccess, onWarning } from '@/mixins/notifications';
 import { ref, type Ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import axiosService from '@/services/axiosService';
 import ModalForm from '@/components/Modals/ModalForm.vue';
 
@@ -91,6 +94,7 @@ const itemsPerPage = ref(10);
 const pageTable = ref(1);
 const sortTable = ref({});
 const totalItems = ref(0);
+const { t } = useI18n();
 
 const onFetchData = async ({
   page,
@@ -142,7 +146,7 @@ const onSetTable = (data: DataResponse[]) => {
     if (key.endsWith('_id')) return;
 
     headers.value.push({
-      title: key,
+      title: t(key),
       align: 'center',
       sortable: true,
       key: key,
@@ -152,7 +156,7 @@ const onSetTable = (data: DataResponse[]) => {
 
 const onDeleteItem = async (idItem: number) => {
   try {
-    const result = await onWarning('Eliminar?', 'Eliminar');
+    const result = await onWarning(t('warning'), t('delete'), t('cancel'));
 
     if (!result) return;
 

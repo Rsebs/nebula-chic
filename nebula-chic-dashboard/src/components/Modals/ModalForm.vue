@@ -41,6 +41,7 @@ import { APIError } from '@/interfaces/APIResponseInterface/APIResponse';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { morphComponent } from '@/components/Inputs';
 import { onError, onSuccess } from '@/mixins/notifications';
+import { useI18n } from 'vue-i18n';
 import axiosService from '@/services/axiosService';
 import CardComponent from '@/components/CardComponent.vue';
 
@@ -70,6 +71,8 @@ const { title, idItemEdit, endpoint } = defineProps({
 const dataFields: Ref<Record<string, unknown>> = ref({});
 const loading = ref(false);
 const formValid = ref(false);
+
+const { t } = useI18n();
 
 const emits = defineEmits(['onClose']);
 
@@ -123,8 +126,8 @@ const onGetFormData = async () => {
 };
 
 const titleCard = computed(() =>
-  idItemEdit === 0 ? `New ${title}` : `Edit ${title}`
+  idItemEdit === 0 ? `${t('new')} ${title}` : `${t('edit')} ${title}`
 );
 
-const saveOrEdit = computed(() => (idItemEdit === 0 ? 'Save' : 'Edit'));
+const saveOrEdit = computed(() => (idItemEdit === 0 ? t('save') : t('edit')));
 </script>

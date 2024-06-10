@@ -23,14 +23,14 @@
                     prepend-icon="mdi-theme-light-dark"
                     @click="onChangeTheme"
                   >
-                    Cambiar tema
+                    {{ $t('changeTheme') }}
                   </v-btn>
                   <v-btn
                     v-if="userStore.login"
                     prepend-icon="mdi-logout"
                     @click="onLogout"
                   >
-                    Cerrar Sesión
+                    {{ $t('logout') }}
                   </v-btn>
                 </v-list-item-title>
               </v-list-item>
@@ -50,16 +50,7 @@
 
         <v-divider />
 
-        <v-list density="compact" nav>
-          <v-list-item
-            v-for="item in itemsList"
-            :key="item.title"
-            :to="item.to"
-            :title="item.title"
-            :prepend-icon="item.icon"
-            exact
-          />
-        </v-list>
+        <MenuView />
       </v-navigation-drawer>
 
       <v-main>
@@ -75,34 +66,12 @@
 
 <script lang="ts" setup>
 import AppFooter from '@/components/AppFooter.vue';
+import MenuView from '@/components/MenuView.vue';
 
 import { ref } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
 import { useUserStore } from '../stores/userStore';
 import { useRouter } from 'vue-router';
-
-const itemsList = ref([
-  {
-    title: 'Index',
-    icon: 'mdi-home',
-    to: { name: 'Index' },
-  },
-  {
-    title: 'Products',
-    icon: 'mdi-tshirt-v',
-    to: { name: 'Products' },
-  },
-  {
-    title: 'ProductTypes',
-    icon: 'mdi-tshirt-v',
-    to: { name: 'ProductTypes' },
-  },
-  {
-    title: 'Sizes',
-    icon: 'mdi-tshirt-v',
-    to: { name: 'Sizes' },
-  },
-]);
 
 const { mobile } = useDisplay();
 const drawer = ref(!mobile.value);

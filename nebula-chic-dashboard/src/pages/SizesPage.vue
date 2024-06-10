@@ -5,19 +5,22 @@
 <script lang="ts" setup>
 import type { Fields } from '@/interfaces/ComponentInterface/ModalFormInterface';
 import TableCRUD from '@/components/Tables/TableCRUD.vue';
+import { useI18n } from 'vue-i18n';
 
-const tableTitle = 'Productos';
+const { t } = useI18n();
+
+const tableTitle = t('sizes');
 const endpoint = 'sizes';
 
 const fields: Fields[] = [
   {
     component: 'InputText',
-    label: 'Nombre',
+    label: t('name'),
     nameKey: 'name',
   },
   {
     component: 'InputText',
-    label: 'Código',
+    label: t('cod'),
     nameKey: 'cod',
   },
 ];

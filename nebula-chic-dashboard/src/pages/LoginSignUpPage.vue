@@ -3,7 +3,7 @@
     <v-col v-for="type in formTypes" :key="type" cols="12" md="6">
       <v-card class="h-100">
         <v-toolbar color="primary">
-          <v-toolbar-title>{{ type }}</v-toolbar-title>
+          <v-toolbar-title>{{ $t(type) }}</v-toolbar-title>
         </v-toolbar>
         <v-form
           v-model="formType[type].formValid"
@@ -24,7 +24,7 @@
           </v-card-text>
           <v-card-actions class="d-flex justify-end">
             <v-btn type="submit" flat color="primary" :loading>
-              {{ type }}
+              {{ $t(type) }}
             </v-btn>
           </v-card-actions>
         </v-form>
@@ -35,13 +35,14 @@
 
 <script setup lang="ts">
 import type { Fields } from '@/interfaces/ComponentInterface/ModalFormInterface';
+import { isUserResponse } from '@/interfaces/APIResponseInterface/UserResponse';
 import { morphComponent } from '@/components/Inputs';
 import { onError } from '@/mixins/notifications';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 import axiosService from '@/services/axiosService';
-import { isUserResponse } from '@/interfaces/APIResponseInterface/UserResponse';
-import { useRouter } from 'vue-router';
 
 interface FormData {
   formValid: boolean;
@@ -55,6 +56,7 @@ interface FormType {
 }
 
 const router = useRouter();
+const { t } = useI18n();
 const formTypes = ['login', 'signup'] as const;
 
 const formType = reactive<FormType>({
@@ -64,12 +66,12 @@ const formType = reactive<FormType>({
     inputFields: [
       {
         component: 'InputText',
-        label: 'Email',
+        label: t('email'),
         nameKey: 'email',
       },
       {
         component: 'InputPassword',
-        label: 'Password',
+        label: t('password'),
         nameKey: 'password',
       },
     ],
@@ -80,22 +82,22 @@ const formType = reactive<FormType>({
     inputFields: [
       {
         component: 'InputText',
-        label: 'Name',
+        label: t('name'),
         nameKey: 'name',
       },
       {
         component: 'InputText',
-        label: 'Email',
+        label: t('email'),
         nameKey: 'email',
       },
       {
         component: 'InputPassword',
-        label: 'Password',
+        label: t('password'),
         nameKey: 'password',
       },
       {
         component: 'InputPassword',
-        label: 'Confirm Password',
+        label: t('confirmPassword'),
         nameKey: 'confirmPassword',
       },
     ],
