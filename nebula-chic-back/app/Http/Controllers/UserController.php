@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -19,11 +20,11 @@ class UserController extends Controller
     try {
       DB::beginTransaction();
 
-      User::create($request->all());
+      $data = User::create($request->all());
 
       DB::commit();
 
-      return $this->successResponse(null, null, 'User created!');
+      return $this->successResponse(UserResource::make($data), null, 'User created!');
     } catch (\Throwable) {
       DB::rollBack();
       return $this->errorResponse([], 'Something went wrong!', 500);
@@ -41,7 +42,7 @@ class UserController extends Controller
       if (!Hash::check($request->password, $data->password))
         throw new Error('Incorrect password', 422);
 
-      return $this->successResponse($data, null, 'Welcome!');
+      return $this->successResponse(UserResource::make($data), null, 'Welcome!');
     } catch (\Throwable $err) {
       return $this->errorResponse([], $err->getMessage(), $err->getCode());
     }
