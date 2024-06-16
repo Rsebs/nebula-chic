@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import type { Fields } from '@/interfaces/ComponentInterface/ModalFormInterface';
+import { APIError } from '@/interfaces/APIResponseInterface/APIResponse';
 import { isUserResponse } from '@/interfaces/APIResponseInterface/UserResponse';
 import { morphComponent } from '@/components/Inputs';
 import { onError } from '@/mixins/notifications';
@@ -131,6 +132,7 @@ const onSubmit = async (type: keyof FormType) => {
     }
   } catch (error) {
     console.error(error);
+    if (error instanceof APIError) onError(t('error'), error.data.message);
   }
   loading.value = false;
 };

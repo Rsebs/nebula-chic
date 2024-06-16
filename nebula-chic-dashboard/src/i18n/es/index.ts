@@ -29,6 +29,8 @@ export default {
   create: 'Crear',
   newRegistration: 'Nuevo registro',
   warning: '¡Cuidado!',
+  error: '¡Error!',
+  success: '¡Éxito!',
 
   id: 'Id',
 };
